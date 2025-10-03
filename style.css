@@ -184,7 +184,7 @@ nav {
 
 .cta-button {
     display: inline-block;
-    background: rgba(255,255,255,0.2);
+    background: #f97316;    
     color: white;
     padding: 15px 30px;
     text-decoration: none;
@@ -194,7 +194,6 @@ nav {
     border: 2px solid white;
     animation: slideInUp 1s ease-out 0.4s both;
 }
-
 .cta-button:hover {
     background: white;
     color: #f97316;
