@@ -212,6 +212,24 @@ nav {
         transform: translateY(0);
     }
 }
+/* --- Styles pour le Logo dans la section HERO --- */
+.hero-logo-img {
+    /* Laisse le navigateur choisir la largeur, mais ne dépasse jamais sa taille originale */
+    max-width: 100%; 
+    
+    /* Assure que l'image est proportionnelle */
+    height: auto; 
+    
+    /* Hauteur maximale pour les grands écrans (environ la taille que vous vouliez) */
+    max-height: 400px; 
+    
+    margin-bottom: 20px;
+    
+    /* S'assurer que le logo est centré dans le flex ou le bloc parent */
+    display: block; 
+    margin-left: auto;
+    margin-right: auto;
+}
 
 /* ---------------------------------------------------- */
 /* Sections */
@@ -563,6 +581,14 @@ footer {
     .footer-content {
         grid-template-columns: 1fr;
         text-align: left;
+    }
+	
+	.hero-logo-img {
+    /* Réduire la taille maximale sur mobile pour qu'il ne prenne pas tout l'écran */
+        max-height: 250px; 
+        
+        /* Assure que l'image ne dépasse pas la largeur du conteneur parent */
+        width: 80%; 
     }
 }
 
