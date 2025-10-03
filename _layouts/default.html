@@ -27,86 +27,76 @@
     </footer>
     
 	<script>
-		// --- FONCTION POUR CHARGER LES TÉMOIGNAGES DE GOOGLE SHEETS ---
 
-// 1. L'URL JSON que vous devez utiliser
-const JSON_FEED_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSH664zy7-EuWIs3doKS8tsZhstJh0rWrYWBKWKpugsIEpabix6ZWmTKhCK-O_Md9czA2RmVncwgo5O/pubgviz/tq?gid=1525314360'; 
-const MAX_TEMOIGNAGES = 3; // Nombre de témoignages à afficher
 
-// Important : Ces noms DOIVENT correspondre EXACTEMENT aux en-têtes de colonnes de votre Google Sheet
-// Ex : Si votre colonne est 'Nom Stagiaire', vous utilisez 'NomStagiaire' (sans espaces, CamelCase)
-const COLUMN_MAPPINGS = {
-    'Satisfaction globale': 'c14', // Adaptez c0, c1, etc. aux index de vos colonnes dans Sheets
-    'Commentaire ou remarques concernant cette formation:': 'c17',
-    'Prénom': 'c2',
-    'Formation suivie': 'c4'
-    // Vous devez ajuster c0, c1, c2, c3 en fonction de la position (index) des colonnes dans votre feuille.
-    // c0 = première colonne, c1 = deuxième colonne, etc.
+function chargerTemoignages() {
+// --- FONCTION POUR CHARGER LES TÉMOIGNAGES DE GOOGLE SHEETS (VIA CSV) ---
+
+const CSV_FEED_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSH664zy7-EuWIs3doKS8tsZhstJh0rWrYWBKWKpugsIEpabix6ZWmTKhCK-O_Md9czA2RmVncwgo5O/pub?gid=1525314360&single=true&output=csv'; 
+const MAX_TEMOIGNAGES = 3; 
+
+// Index de colonnes à adapter (0 est la colonne A, 1 est la B, etc.)
+// ATTENTION : La colonne 'Timestamp' du Formulaire est toujours la colonne A (index 0).
+// Le Nom, l'Appréciation, la Note, etc. commencent après le Timestamp.
+const COL_INDICES = {
+    // Vous devez ajuster ces indices en fonction de l'ordre réel de vos colonnes dans Sheets.
+    TIMESTAMP: 0, // Ne pas utiliser cette colonne pour l'affichage, mais elle est là
+    NOTE_GLOBALE: 14, // Ex: Colonne o
+    APPRECIATION_PUBLIQUE: 17, // Ex: Colonne r
+    NOM: 2, // Ex: Colonne B
+    VILLE: 4 // Ex: Colonne E
 };
 
 function chargerTemoignages() {
     const container = document.getElementById('temoignages-recent');
     if (!container) return; 
 
-    // Nettoyage de l'ancienne balise de chargement
     container.innerHTML = `<p style="text-align: center;">Chargement des avis en cours...</p>`;
 
-    // Google renvoie le JSON enveloppé dans une fonction (générant des erreurs si non traité)
-    fetch(JSON_FEED_URL)
+    fetch(CSV_FEED_URL)
         .then(response => response.text())
-        .then(text => {
-            // *** CORRECTION FINALE pour gérer l'enveloppe de la fonction, en ignorant les espaces blancs ***
+        .then(csvText => {
+            // 1. Convertir le texte CSV en tableau de lignes
+            const rows = csvText.trim().split('\n');
             
-            // 1. Rend le texte sur une seule ligne et supprime les espaces multiples pour faciliter la recherche
-            const cleanText = text.replace(/\s+/g, ' '); 
+            // 2. Retirer l'en-tête (première ligne)
+            rows.shift(); 
             
-            // 2. Utilise une expression régulière pour trouver l'objet JSON après setResponse(
-            //    Note : nous avons retiré le point-virgule final pour plus de robustesse.
-            const match = cleanText.match(/google\.visualization\.Query\.setResponse\((.*)\)/);
-            
-            if (!match || match.length < 2) {
-                // Si l'expression régulière ne trouve rien, on lance une erreur explicite
-                throw new Error("Impossible d'extraire le JSON. Veuillez vérifier l'URL de publication de la feuille.");
-            }
-            
-            // 3. Le JSON pur est dans le deuxième élément du tableau 'match'
-            const jsonText = match[1].trim(); // On retire les espaces restants
-            
-            // 4. Parse le JSON
-            const data = JSON.parse(jsonText);
-            
-            // 5. Récupère les lignes de données
-            const rows = data.table.rows;
-            
-            // 6. Convertit les lignes en objets lisibles
-            const temoignages = rows.map(row => {
-                // Les données sont dans row.c[index de colonne].v (v pour value)
+            // 3. Convertir les lignes en objets (et inverser pour les plus récents)
+            const temoignages = rows.reverse().map(row => {
+                // Utilise une expression régulière pour séparer les colonnes, 
+                // gérant les virgules à l'intérieur des guillemets (si le stagiaire met une virgule)
+                const cols = row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g).map(col => col.trim().replace(/^"|"$/g, ''));
+                
+                // Mappage des données avec les indices corrects
                 return {
-                    rating: row.c[14] ? row.c[14].v : null,
-                    text: row.c[17] ? row.c[17].v : 'Appréciation non fournie',
-                    name: row.c[2] ? row.c[2].v : 'Anonyme',
-                    city: row.c[4] ? row.c[4].v : ''
+                    // Les indices doivent correspondre à l'ordre de vos colonnes dans Sheets.
+                    rating: cols[COL_INDICES.NOTE_GLOBALE], 
+                    text: cols[COL_INDICES.APPRECIATION_PUBLIQUE],
+                    name: cols[COL_INDICES.NOM],
+                    city: cols[COL_INDICES.VILLE]
                 };
-            });
-            
-            // Inverse l'ordre pour afficher les plus récents en premier (si Sheets trie par défaut par date)
-            const responses = temoignages.reverse(); 
-            
-            // Vider le conteneur et afficher
+            }).filter(t => t.text && t.text.length > 5); // Filtre les témoignages vides
+
+            // 4. Vider le conteneur et afficher
             container.innerHTML = '';
             
-            // Afficher les N derniers
-            const temoignagesAAfficher = responses.slice(0, MAX_TEMOIGNAGES);
+            const temoignagesAAfficher = temoignages.slice(0, MAX_TEMOIGNAGES);
+
+            if (temoignagesAAfficher.length === 0) {
+                 container.innerHTML = `<p style="text-align: center;">Aucun avis n'a encore été publié.</p>`;
+                 return;
+            }
 
             temoignagesAAfficher.forEach(t => {
-                // Fonction pour convertir la note numérique en étoiles (assumant une note sur 5 ou 10)
-                const note = parseInt(t.rating || 0);
-                const stars = '⭐'.repeat(Math.round(note / 2)); // Adapté si la note est sur 10
+                const note = parseFloat(t.rating) || 0;
+                // Assumons que la note est sur 5 ou 10. J'utilise la formule sur 5 pour les étoiles.
+                const stars = '⭐'.repeat(Math.round(note > 5 ? note / 2 : note)); 
 
                 const html = `
                     <div class="testimonial-item fade-in visible">
                         <div class="testimonial-content">
-                            <p><strong>${stars} (${note}/10)</strong></p>
+                            <p><strong>${stars} (${note > 5 ? note + '/10' : note + '/5'})</strong></p>
                             <p>"${t.text}"</p>
                             <div class="testimonial-author">
                                 <strong>${t.name}</strong>
@@ -120,9 +110,10 @@ function chargerTemoignages() {
         })
         .catch(error => {
             console.error("Erreur lors du chargement des témoignages:", error);
-            container.innerHTML = `<p style="text-align: center; color: red;">Désolé, impossible de charger les avis pour le moment. (${error.message})</p>`;
+            container.innerHTML = `<p style="text-align: center; color: red;">Désolé, impossible de charger les avis pour le moment. Erreur CSV.</p>`;
         });
 }
+
 
 // Lancer le chargement une fois que le reste de la page est prêt
 window.addEventListener('load', chargerTemoignages);
