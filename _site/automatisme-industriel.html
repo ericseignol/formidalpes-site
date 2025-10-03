@@ -210,8 +210,8 @@ const COL_INDICES = {
     TIMESTAMP: 0, // Ne pas utiliser cette colonne pour l'affichage, mais elle est là
     NOTE_GLOBALE: 14, // Ex: Colonne o
     APPRECIATION_PUBLIQUE: 17, // Ex: Colonne r
-    NOM: 2, // Ex: Colonne D
-    VILLE: 4 // Ex: Colonne E
+    PRENOM_STAGIAIRE: 2, // Ex: Colonne D
+    FORMATION_SUIVIE: 4 // Ex: Colonne E
 };
 
 function chargerTemoignages() {
@@ -240,8 +240,8 @@ function chargerTemoignages() {
                     // Les indices doivent correspondre à l'ordre de vos colonnes dans Sheets.
                     rating: cols[COL_INDICES.NOTE_GLOBALE], 
                     text: cols[COL_INDICES.APPRECIATION_PUBLIQUE],
-                    name: cols[COL_INDICES.NOM],
-                    city: cols[COL_INDICES.VILLE]
+                    name: cols[COL_INDICES.PRENOM_STAGIAIRE],
+                    subtitle: cols[COL_INDICES.FORMATION_SUIVIE]
                 };
             }).filter(t => t.text && t.text.length > 5); // Filtre les témoignages vides
 
@@ -257,17 +257,17 @@ function chargerTemoignages() {
 
             temoignagesAAfficher.forEach(t => {
                 const note = parseFloat(t.rating) || 0;
-                // Assumons que la note est sur 5 ou 10. J'utilise la formule sur 5 pour les étoiles.
-                const stars = '⭐'.repeat(Math.round(note > 5 ? note / 2 : note)); 
+                
+                const stars = '⭐'.repeat(Math.round(note)); 
 
                 const html = `
                     <div class="testimonial-item fade-in visible">
                         <div class="testimonial-content">
-                            <p><strong>${stars} (${note > 5 ? note + '/10' : note + '/5'})</strong></p>
-                            <p>"${t.text}"</p>
-                            <div class="testimonial-author">
-                                <strong>${t.name}</strong>
-                                <span>${t.city}</span>
+                            <p><strong>${stars} (${note}/5)</strong></p>
+							<p>"${t.text}"</p>
+							<div class="testimonial-author">
+								<strong>${t.name}</strong>
+								<span>${t.subtitle}</span>
                             </div>
                         </div>
                     </div>
