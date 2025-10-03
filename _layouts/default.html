@@ -28,110 +28,93 @@
     
 	<script>
 
-const CSV_FEED_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSH664zy7-EuWIs3doKS8tsZhstJh0rWrYWBKWKpugsIEpabix6ZWmTKhCK-O_Md9czA2RmVncwgo5O/pub?gid=1525314360&single=true&output=csv'; 
-const MAX_TEMOIGNAGES = 3; 
+// La fonction chargerTemoignages est maintenant la première dans le bloc <script>
 
-// Index de colonnes à adapter (0 est la colonne A, 1 est la B, etc.)
-// ATTENTION : La colonne 'Timestamp' du Formulaire est toujours la colonne A (index 0).
-// Le Nom, l'Appréciation, la Note, etc. commencent après le Timestamp.
-const COL_INDICES = {
-    // Vous devez ajuster ces indices en fonction de l'ordre réel de vos colonnes dans Sheets.
-    TIMESTAMP: 0, // Ne pas utiliser cette colonne pour l'affichage, mais elle est là
-    NOTE_GLOBALE: 14, // Ex: Colonne o
-    APPRECIATION_PUBLIQUE: 17, // Ex: Colonne r
-    PRENOM_STAGIAIRE: 2, // Ex: Colonne D
-    FORMATION_SUIVIE: 4 // Ex: Colonne E
-};
+        const CSV_FEED_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSH664zy7-EuWIs3doKS8tsZhstJh0rWrYWBKWKpugsIEpabix6ZWmTKhCK-O_Md9czA2RmVncwgo5O/pub?gid=1525314360&single=true&output=csv'; 
+        
+        // ATTENTION : La variable MAX_TEMOIGNAGES n'est plus nécessaire car on utilise maxAvis
+        
+        const COL_INDICES = {
+            TIMESTAMP: 0,
+            NOTE_GLOBALE: 14,
+            APPRECIATION_PUBLIQUE: 17,
+            PRENOM_STAGIAIRE: 2,
+            FORMATION_SUIVIE: 4 
+        };
 
-function chargerTemoignages() {
-    // 1. Détermine quel conteneur utiliser
-    const isHomePage = document.getElementById('temoignages-recent');
-    const isArchivesPage = document.getElementById('temoignages-complet');
-    
-    let container;
-    let maxAvis;
-
-    if (isHomePage) {
-        container = isHomePage;
-        maxAvis = 3; // N'affiche que les 3 derniers sur l'accueil
-    } else if (isArchivesPage) {
-        container = isArchivesPage;
-        maxAvis = Infinity; // Affiche TOUS les avis sur la page dédiée
-    } else {
-        return; // Quitte si aucun conteneur n'est trouvé
-    } 
-
-    container.innerHTML = `<p style="text-align: center;">Chargement des avis en cours...</p>`;
-
-    fetch(CSV_FEED_URL)
-        .then(response => response.text())
-        .then(csvText => {
-            // 1. Convertir le texte CSV en tableau de lignes
-            const rows = csvText.trim().split('\n');
+        function chargerTemoignages() {
+            // 1. Détermine quel conteneur utiliser
+            const isHomePage = document.getElementById('temoignages-recent');
+            const isArchivesPage = document.getElementById('temoignages-complet');
             
-            // 2. Retirer l'en-tête (première ligne)
-            rows.shift(); 
-            
-            // 3. Convertir les lignes en objets (et inverser pour les plus récents)
-            const temoignages = rows.reverse().map(row => {
-                // Utilise une expression régulière pour séparer les colonnes, 
-                // gérant les virgules à l'intérieur des guillemets (si le stagiaire met une virgule)
-                const cols = row.split(',').map(col => col.trim().replace(/^"|"$/g, ''));
-                
-                // Mappage des données avec les indices corrects
-                return {
-                    // Les indices doivent correspondre à l'ordre de vos colonnes dans Sheets.
-                    rating: cols[COL_INDICES.NOTE_GLOBALE], 
-                    text: cols[COL_INDICES.APPRECIATION_PUBLIQUE],
-                    name: cols[COL_INDICES.PRENOM_STAGIAIRE],
-                    subtitle: cols[COL_INDICES.FORMATION_SUIVIE]
-                };
-            }).filter(t => t.text && t.text.length > 5); // Filtre les témoignages vides
+            let container;
+            let maxAvis;
 
-            // 4. Vider le conteneur et afficher
-            container.innerHTML = '';
-			
-			// UTILISE maxAvis au lieu du chiffre 3 codé en dur
-            const temoignagesAAfficher = temoignages.slice(0, maxAvis); 
-
-            if (temoignagesAAfficher.length === 0) {
-                 container.innerHTML = `<p style="text-align: center;">Aucun avis n'a encore été publié.</p>`;
-                 return;
-            }
-            
-            const temoignagesAAfficher = temoignages.slice(0, MAX_TEMOIGNAGES);
-
-            if (temoignagesAAfficher.length === 0) {
-                 container.innerHTML = `<p style="text-align: center;">Aucun avis n'a encore été publié.</p>`;
-                 return;
+            if (isHomePage) {
+                container = isHomePage;
+                maxAvis = 3; // N'affiche que les 3 derniers sur l'accueil
+            } else if (isArchivesPage) {
+                container = isArchivesPage;
+                maxAvis = Infinity; // Affiche TOUS les avis sur la page dédiée
+            } else {
+                return; // Quitte si aucun conteneur n'est trouvé
             }
 
-            temoignagesAAfficher.forEach(t => {
-                const note = parseFloat(t.rating) || 0;
-                
-                const stars = '⭐'.repeat(Math.round(note)); 
+            container.innerHTML = `<p style="text-align: center;">Chargement des avis en cours...</p>`;
 
-                const html = `
-                    <div class="testimonial-item fade-in visible">
-                        <div class="testimonial-content">
-                            <p><strong>${stars} (${note}/5)</strong></p>
-							<p>"${t.text}"</p>
-							<div class="testimonial-author">
-								<strong>${t.name}</strong>
-								<span>${t.subtitle}</span>
+            fetch(CSV_FEED_URL)
+                .then(response => response.text())
+                .then(csvText => {
+                    const rows = csvText.trim().split('\n');
+                    rows.shift(); // Retirer l'en-tête
+                    
+                    const temoignages = rows.reverse().map(row => {
+                        // Utilisation de split(',') est correcte si la virgule est le séparateur et pas de virgule dans le texte
+                        const cols = row.split(',').map(col => col.trim().replace(/^"|"$/g, ''));
+                        
+                        return {
+                            rating: cols[COL_INDICES.NOTE_GLOBALE], 
+                            text: cols[COL_INDICES.APPRECIATION_PUBLIQUE],
+                            name: cols[COL_INDICES.PRENOM_STAGIAIRE],
+                            subtitle: cols[COL_INDICES.FORMATION_SUIVIE]
+                        };
+                    }).filter(t => t.text && t.text.length > 5);
+
+                    container.innerHTML = '';
+                    
+                    // --- CORRECTION CLÉ ICI : Utiliser le maxAvis dynamique ---
+                    const temoignagesAAfficher = temoignages.slice(0, maxAvis); 
+                    
+                    if (temoignagesAAfficher.length === 0) {
+                        container.innerHTML = `<p style="text-align: center;">Aucun avis n'a encore été publié.</p>`;
+                        return;
+                    }
+                    // --- FIN DE CORRECTION CLÉ ---
+
+                    temoignagesAAfficher.forEach(t => {
+                        const note = parseFloat(t.rating) || 0;
+                        const stars = '⭐'.repeat(Math.round(note)); 
+
+                        const html = `
+                            <div class="testimonial-item fade-in visible">
+                                <div class="testimonial-content">
+                                    <p><strong>${stars} (${note}/5)</strong></p>
+                                    <p>"${t.text}"</p>
+                                    <div class="testimonial-author">
+                                        <strong>${t.name}</strong>
+                                        <span>${t.subtitle}</span>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    </div>
-                `;
-                container.innerHTML += html;
-            });
-        })
-        .catch(error => {
-            console.error("Erreur lors du chargement des témoignages:", error);
-            container.innerHTML = `<p style="text-align: center; color: red;">Désolé, impossible de charger les avis pour le moment. Erreur CSV.</p>`;
-        });
-			
-}
+                        `;
+                        container.innerHTML += html;
+                    });
+                })
+                .catch(error => {
+                    console.error("Erreur lors du chargement des témoignages:", error);
+                    container.innerHTML = `<p style="text-align: center; color: red;">Désolé, impossible de charger les avis pour le moment. Erreur CSV.</p>`;
+                });
+        }
 
 
 // Lancer le chargement une fois que le reste de la page est prêt
