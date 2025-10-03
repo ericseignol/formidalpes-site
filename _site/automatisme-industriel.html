@@ -198,6 +198,89 @@ window.addEventListener('scroll', () => {
     </footer>
     
 	<script>
+		// --- FONCTION POUR CHARGER LES TÉMOIGNAGES DE GOOGLE SHEETS ---
+
+// 1. L'URL JSON que vous devez utiliser
+const JSON_FEED_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSH664zy7-EuWIs3doKS8tsZhstJh0rWrYWBKWKpugsIEpabix6ZWmTKhCK-O_Md9czA2RmVncwgo5O/pubgviz/tq?gid=1525314360'; 
+const MAX_TEMOIGNAGES = 3; // Nombre de témoignages à afficher
+
+// Important : Ces noms DOIVENT correspondre EXACTEMENT aux en-têtes de colonnes de votre Google Sheet
+// Ex : Si votre colonne est 'Nom Stagiaire', vous utilisez 'NomStagiaire' (sans espaces, CamelCase)
+const COLUMN_MAPPINGS = {
+    'Satisfaction globale': 'c14', // Adaptez c0, c1, etc. aux index de vos colonnes dans Sheets
+    'Commentaire ou remarques concernant cette formation:': 'c17',
+    'Prénom': 'c2',
+    'Formation suivie': 'c4'
+    // Vous devez ajuster c0, c1, c2, c3 en fonction de la position (index) des colonnes dans votre feuille.
+    // c0 = première colonne, c1 = deuxième colonne, etc.
+};
+
+function chargerTemoignages() {
+    const container = document.getElementById('temoignages-recent');
+    if (!container) return; 
+
+    // Nettoyage de l'ancienne balise de chargement
+    container.innerHTML = `<p style="text-align: center;">Chargement des avis en cours...</p>`;
+
+    // Google renvoie le JSON enveloppé dans une fonction (générant des erreurs si non traité)
+    fetch(JSON_FEED_URL)
+        .then(response => response.text())
+        .then(text => {
+            // 2. Extrait le JSON pur du texte reçu (supprime la fonction google)
+            const jsonText = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+            const data = JSON.parse(jsonText);
+            
+            // 3. Récupère les lignes de données
+            const rows = data.table.rows;
+            
+            // 4. Convertit les lignes en objets lisibles
+            const temoignages = rows.map(row => {
+                // Les données sont dans row.c[index de colonne].v (v pour value)
+                return {
+                    rating: row.c[14] ? row.c[14].v : null,
+                    text: row.c[17] ? row.c[17].v : 'Appréciation non fournie',
+                    name: row.c[2] ? row.c[2].v : 'Anonyme',
+                    city: row.c[4] ? row.c[4].v : ''
+                };
+            });
+            
+            // Inverse l'ordre pour afficher les plus récents en premier (si Sheets trie par défaut par date)
+            const responses = temoignages.reverse(); 
+            
+            // Vider le conteneur et afficher
+            container.innerHTML = '';
+            
+            // Afficher les N derniers
+            const temoignagesAAfficher = responses.slice(0, MAX_TEMOIGNAGES);
+
+            temoignagesAAfficher.forEach(t => {
+                // Fonction pour convertir la note numérique en étoiles (assumant une note sur 5 ou 10)
+                const note = parseInt(t.rating || 0);
+                const stars = '⭐'.repeat(Math.round(note / 2)); // Adapté si la note est sur 10
+
+                const html = `
+                    <div class="testimonial-item fade-in visible">
+                        <div class="testimonial-content">
+                            <p><strong>${stars} (${note}/10)</strong></p>
+                            <p>"${t.text}"</p>
+                            <div class="testimonial-author">
+                                <strong>${t.name}</strong>
+                                <span>${t.city}</span>
+                            </div>
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += html;
+            });
+        })
+        .catch(error => {
+            console.error("Erreur lors du chargement des témoignages:", error);
+            container.innerHTML = `<p style="text-align: center; color: red;">Désolé, impossible de charger les avis pour le moment. (${error.message})</p>`;
+        });
+}
+
+// Lancer le chargement une fois que le reste de la page est prêt
+window.addEventListener('load', chargerTemoignages);
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -227,39 +310,8 @@ window.addEventListener('scroll', () => {
 
         window.addEventListener('scroll', animateOnScroll);
         animateOnScroll(); // Initial check
-
-        function addTestimonial(event) {
-            event.preventDefault();
-            
-            const form = event.target;
-            const name = form.testimonialName.value;
-            const job = form.testimonialJob.value;
-            const text = form.testimonialText.value;
-            
-            // Create new testimonial element
-            const testimonialContainer = document.querySelector('.testimonial-container');
-            const newTestimonial = document.createElement('div');
-            newTestimonial.className = 'testimonial-item';
-            newTestimonial.innerHTML = `
-                <div class="testimonial-content">
-                    <p>"${text}"</p>
-                    <div class="testimonial-author">
-                        <strong>${name}</strong>
-                        <span>${job}</span>
-                    </div>
-                </div>
-            `;
-            
-            testimonialContainer.appendChild(newTestimonial);
-            
-            // Reset form and hide it
-            form.reset();
-            hideTestimonialForm();
-            
-            // Show success message
-            alert('Merci pour votre témoignage ! Il a été ajouté avec succès.');
-        }
-        
+       
+                          
         // Header background on scroll
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
