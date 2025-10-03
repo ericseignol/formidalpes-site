@@ -176,10 +176,6 @@ window.addEventListener('scroll', () => {
     
 	<script>
 
-
-function chargerTemoignages() {
-// --- FONCTION POUR CHARGER LES TÉMOIGNAGES DE GOOGLE SHEETS (VIA CSV) ---
-
 const CSV_FEED_URL = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vSH664zy7-EuWIs3doKS8tsZhstJh0rWrYWBKWKpugsIEpabix6ZWmTKhCK-O_Md9czA2RmVncwgo5O/pub?gid=1525314360&single=true&output=csv'; 
 const MAX_TEMOIGNAGES = 3; 
 
@@ -191,7 +187,7 @@ const COL_INDICES = {
     TIMESTAMP: 0, // Ne pas utiliser cette colonne pour l'affichage, mais elle est là
     NOTE_GLOBALE: 14, // Ex: Colonne o
     APPRECIATION_PUBLIQUE: 17, // Ex: Colonne r
-    NOM: 2, // Ex: Colonne B
+    NOM: 2, // Ex: Colonne D
     VILLE: 4 // Ex: Colonne E
 };
 
@@ -260,6 +256,7 @@ function chargerTemoignages() {
             console.error("Erreur lors du chargement des témoignages:", error);
             container.innerHTML = `<p style="text-align: center; color: red;">Désolé, impossible de charger les avis pour le moment. Erreur CSV.</p>`;
         });
+			
 }
 
 
