@@ -229,15 +229,6 @@ window.addEventListener('scroll', () => {
         window.addEventListener('scroll', animateOnScroll);
         animateOnScroll(); // Initial check
 
-        // Testimonials management
-        function showTestimonialForm() {
-            document.getElementById('testimonialForm').classList.add('active');
-        }
-
-        function hideTestimonialForm() {
-            document.getElementById('testimonialForm').classList.remove('active');
-        }
-
         function addTestimonial(event) {
             event.preventDefault();
             
