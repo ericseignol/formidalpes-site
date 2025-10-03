@@ -209,20 +209,21 @@ function chargerTemoignages() {
     fetch(JSON_FEED_URL)
         .then(response => response.text())
         .then(text => {
-            // *** CORRECTION pour gérer l'enveloppe de la fonction ***
+            // *** CORRECTION ROBUSTE du JSON.parse ***
             
-            // 1. Cherche le début et la fin de l'objet JSON pur
-            const jsonStart = text.indexOf('{');
-            const jsonEnd = text.lastIndexOf('}') + 1;
+            // 1. Utilise une expression régulière pour trouver et extraire l'objet JSON
+            //    Elle cherche l'objet JSON qui se trouve à l'intérieur de la fonction setResponse.
+            const match = text.match(/google\.visualization\.Query\.setResponse\(([\s\S]*)\);/);
             
-            if (jsonStart === -1 || jsonEnd <= jsonStart) {
-                throw new Error("Impossible de trouver l'objet JSON dans la réponse de Google.");
+            if (!match || match.length < 2) {
+                // Si l'expression régulière ne trouve rien, on lance une erreur explicite
+                throw new Error("Impossible d'extraire le JSON. Le format de réponse de Google Sheets a peut-être changé.");
             }
             
-            // 2. Extrait l'objet JSON pur
-            const jsonText = text.substring(jsonStart, jsonEnd);
+            // 2. Le JSON pur est dans le deuxième élément du tableau 'match'
+            const jsonText = match[1]; 
             
-            // 3. Parse le JSON (c'est cette ligne qui échouait avant)
+            // 3. Parse le JSON
             const data = JSON.parse(jsonText);
             
             // 4. Récupère les lignes de données
