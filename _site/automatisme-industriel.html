@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Accueil et Formations | Formid'Alpes</title>
+    
+    <link rel="icon" type="image/png" href="/logo.png">
+    
+    <link rel="stylesheet" href="/style.css"> 
+    
+    </head>
+<body>
+    <header>
+        <nav class="container">
+    <a href="/" class="logo">
+        <img src="/votre-logo.png" alt="Formid'Alpes Logo" class="header-logo">
+        Formid'Alpes
+    </a>
+    
+    <ul class="nav-links">
+        <li><a href="/">Accueil</a></li> 
+        <li><a href="#formations">Formations</a></li>
+        <li><a href="#apropos">À Propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
+</nav>
+    </header>
+
+    <main>
+                <section class="hero" style="padding-top: 100px; padding-bottom: 50px;">
+            <div class="hero-content container">
+                <h1>Formation Automatisme Industriel</h1>
+                <p>Maîtrisez les API Schneider et Siemens pour l'industrie 4.0</p>
+            </div>
+        </section>
+
+        <section class="section training-detail-section">
+            <div class="container">
+                <div class="training-detail-content fade-in">
+                    <h2>Détail de la Formation Automatisme Industriel</h2>
+                    <p>Cette formation vous propose une initiation complète à l'automatisme industriel et à la logique des Automates Programmables Industriels (API). Vous apprendrez à programmer et à diagnostiquer des systèmes automatisés en utilisant les solutions de pointe de Schneider Electric et Siemens, des acteurs majeurs de l'industrie 4.0.</p>
+
+                    <h3>Objectifs de la Formation</h3>
+                    <ul>
+                        <li>Comprendre les principes fondamentaux de l'automatisme industriel.</li>
+                        <li>Acquérir les bases de la programmation d'API (langage Ladder, Grafcet).</li>
+                        <li>Utiliser les environnements de développement Schneider (SoMachine/EcoStruxure Machine Expert) et Siemens (TIA Portal).</li>
+                        <li>Diagnostiquer des pannes et dépanner des systèmes automatisés.</li>
+                        <li>Mettre en œuvre des solutions d'automatisation simples.</li>
+                    </ul>
+
+                    <h3>Public Cible</h3>
+                    <p>Techniciens de maintenance, électriciens industriels, ingénieurs débutants en automatisation, étudiants en génie électrique ou mécanique, ou toute personne souhaitant se familiariser avec les API industriels.</p>
+
+                    <h3>Programme Détaillé</h3>
+                    <ul>
+                        <li>**Module 1 : Introduction à l'Automatisme Industriel**
+                            <ul>
+                                <li>Qu'est-ce qu'un système automatisé ?</li>
+                                <li>Historique et évolution des automates.</li>
+                                <li>Architecture matérielle d'un API.</li>
+                                <li>Capteurs et actionneurs.</li>
+                            </ul>
+                        </li>
+                        <li>**Module 2 : Bases de la Programmation API (Schneider et Siemens)**
+                            <ul>
+                                <li>Notions de logique combinatoire et séquentielle.</li>
+                                <li>Langage Ladder (LD) : fonctions de base, temporisateurs, compteurs.</li>
+                                <li>Grafcet (SFC) : étapes, transitions, actions.</li>
+                                <li>Présentation des logiciels SoMachine/EcoStruxure Machine Expert et TIA Portal.</li>
+                            </ul>
+                        </li>
+                        <li>**Module 3 : Programmation Avancée et Fonctions Spécifiques**
+                            <ul>
+                                <li>Variables, blocs fonctionnels, sous-routines.</li>
+                                <li>Gestion des entrées/sorties analogiques.</li>
+                                <li>Communication industrielle (Modbus, Profinet/Profibus, Ethernet/IP).</li>
+                                <li>Mise en œuvre d'interfaces homme-machine (IHM).</li>
+                            </ul>
+                        </li>
+                        <li>**Module 4 : Diagnostic et Maintenance des Systèmes Automatisés**
+                            <ul>
+                                <li>Méthodologie de dépannage.</li>
+                                <li>Lecture et interprétation des schémas électriques et logiques.</li>
+                                <li>Outils de diagnostic des API (table d'animation, forçage...).</li>
+                                <li>Exercices pratiques de recherche de pannes.</li>
+                            </ul>
+                        </li>
+                        <li>**Module 5 : Applications Pratiques et Projets**
+                            <ul>
+                                <li>Études de cas réels : convoyeurs, machines d'emballage, lignes de production.</li>
+                                <li>Réalisation de projets d'automatisation sur maquettes pédagogiques.</li>
+                                <li>Bonnes pratiques de programmation et de documentation.</li>
+                            </ul>
+                        </li>
+                    </ul>
+
+                    <h3>Prérequis</h3>
+                    <p>Connaissances de base en électricité industrielle.</p>
+
+                    <h3>Durée de la formation</h3>
+                    <p>5 jours (35 heures).</p>
+
+                    <h3>Certification</h3>
+                    <p>Attestation de fin de formation Formid'Alpes.</p>
+                </div>
+
+                <div class="contact-link-footer fade-in">
+                    <a href="contact.html" class="cta-button">Intéressé(e) par cette formation ? Contactez-nous !</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+
+    <script src="script.js"></script> <script>
+        // Smooth scrolling for navigation links (si non géré par un script.js externe)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll (si non géré par un script.js externe)
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Initial check
+
+       // Header background on scroll
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    
+    // Si le défilement est supérieur à 100 pixels
+    if (window.scrollY > 100) {
+        // AJOUTE la classe CSS 'scrolled-header'
+        header.classList.add('scrolled-header');
+    } else {
+        // RETIRE la classe CSS 'scrolled-header'
+        header.classList.remove('scrolled-header');
+    }
+});
+    </script>
+</body>
+</html>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EURL Eric Seignol - Formid'Alpes</h3>
+                    <p>Organisme de formation spécialisé dans les domaines techniques et industriels, au service des professionnels des Hautes-Alpes.</p>
+                    <p><strong>SIRET :</strong> 990 673 683 00019</p>
+                    <p><strong>Déclaration d'activité :</strong> 93050092005</p>
+                    <p><small>Préfet de région Provence-Alpes-Côte d'Azur</small></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📧 contact@formid-alpes.fr</p>
+                    <p>📞 06 86 51 93 40</p>
+                    <p>📍 34, Chemin du grain de blé<br>05000 Gap</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Zone d'intervention</h3>
+                    <p><strong>Principale :</strong> Hautes-Alpes (05)</p>
+                    <p><strong>Secondaire :</strong> Alpes de Haute-Provence (04)</p>
+                    <p><a href="#">Catalogue formations</a></p>
+                    <p><a href="#">--------------------</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Formid'Alpes. Tous droits réservés.</p>
+            </div>
+    </footer>
+    
+    </body>
+</html>

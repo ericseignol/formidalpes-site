@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <title>Accueil et Formations | Formid'Alpes</title>
+    
+    <link rel="icon" type="image/png" href="/logo.png">
+    
+    <link rel="stylesheet" href="/style.css"> 
+    
+    </head>
+<body>
+    <header>
+        <nav class="container">
+    <a href="/" class="logo">
+        <img src="/votre-logo.png" alt="Formid'Alpes Logo" class="header-logo">
+        Formid'Alpes
+    </a>
+    
+    <ul class="nav-links">
+        <li><a href="/">Accueil</a></li> 
+        <li><a href="#formations">Formations</a></li>
+        <li><a href="#apropos">À Propos</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+
+    <button class="menu-toggle" aria-label="Ouvrir le menu">☰</button>
+</nav>
+    </header>
+
+    <main>
+        <section id="accueil" class="hero">
+    <div class="hero-content container">
+        <img src="logo-transparent-png.png" alt="Formid'Alpes" style="height: 500px; margin-bottom: 20px;">
+        <h2 class="section-title">Formations Formidables dans les Hautes-Alpes</h2>
+        <p>Formations professionnelles spécialisées : Efficacité énergetique, Photovoltaïque, Électricité, Automatisme et plus encore</p>
+        <a href="#formations" class="cta-button">Découvrir nos formations</a>
+    </div>
+</section>
+
+    <!-- Services/Formations Section -->
+    <section id="formations" class="section">
+        <div class="container">
+            <h2 class="section-title">Nos Domaines de Formation</h2>
+            <div class="services-grid">
+                <a href="photovoltaique.html" class="service-card fade-in">
+    <div class="service-icon">☀️</div>
+    <h3>Photovoltaïque</h3>
+    <p>Comprendre et préparer l'installation de systèmes photovoltaïques : bases théoriques et réglementaires pour maîtriser l'énergie solaire.</p>
+</a>
+<a href="automatisme-industriel.html" class="service-card fade-in">
+    <div class="service-icon">🔧</div>
+    <h3>Automatisme Industriel</h3>
+    <p>Initiation à l'automatisme industriel et à la logique API avec les solutions Schneider et Siemens pour l'industrie 4.0.</p>
+</a>
+
+<a href="formation-formateur.html" class="service-card fade-in">
+    <div class="service-icon">🎓</div>
+    <h3>Formation de Formateur</h3>
+    <p>Formation complète pour développer vos compétences pédagogiques et transmettre efficacement votre expertise professionnelle.</p>
+</a>
+
+<a href="habilitations-electriques.html" class="service-card fade-in">
+    <div class="service-icon">⚡</div>
+    <h3>Habilitations Électriques</h3>
+    <p>Formations aux habilitations électriques tous indices BT/HTA pour travailler en sécurité sur les installations électriques.</p>
+</a>
+
+<a href="formation-cse-cssct.html" class="service-card fade-in">
+    <div class="service-icon">🏢</div>
+    <h3>CSE / CSSCT</h3>
+    <p>Formation des membres du Comité Social et Économique et de la Commission Santé, Sécurité et Conditions de Travail.</p>
+</a>
+
+<a href="risques-psychosociaux.html" class="service-card fade-in">
+    <div class="service-icon">🧠</div>
+    <h3>Risques Psychosociaux</h3>
+    <p>Prévention et gestion des risques psychosociaux au travail pour préserver la santé mentale et le bien-être des salariés.</p>
+</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="apropos" class="section about">
+        <div class="container">
+            <h2 class="section-title">À Propos de Formid'Alpes</h2>
+            <div class="about-content">
+                <div class="about-text fade-in">
+                    <p>Formid'Alpes est un organisme de formation spécialisé dans les domaines techniques et industriels, la sécurité, la santé, et la qualité de vie au travail, implanté dans les Hautes-Alpes avec une extension vers les Alpes de Haute-Provence.</p>
+                    
+                    <p>Notre expertise couvre les secteurs en forte croissance : énergies renouvelables, automatisme industriel, sécurité au travail et formation pédagogique. Nous proposons des formations adaptées aux besoins des entreprises locales et aux évolutions technologiques.</p>
+                    
+                    <p>Nos formations sont dispensées par des formateurs expérimentés, issus du terrain, qui allient expertise technique et pédagogie moderne pour garantir une montée en compétences efficace.</p>
+                </div>
+                <div class="testimonials fade-in">
+                    <h3 style="text-align: center; margin-bottom: 1.5rem; color: #667eea;">Témoignages de nos stagiaires</h3>
+                    <div class="testimonial-container">
+                        <div class="testimonial-item">
+                            <div class="testimonial-content">
+                                <p>"Formation très complète sur le photovoltaïque. Le formateur maîtrise parfaitement son sujet et sait transmettre ses connaissances de manière claire."</p>
+                                <div class="testimonial-author">
+                                    <strong>Jean-Pierre M.</strong>
+                                    <span>Électricien - Gap</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="testimonial-item">
+                            <div class="testimonial-content">
+                                <p>"Excellente formation sur l'automatisme industriel. Très pratique avec des exemples concrets. Je recommande vivement !"</p>
+                                <div class="testimonial-author">
+                                    <strong>Marie L.</strong>
+                                    <span>Technicienne - Sisteron</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="add-testimonial">
+                        <button onclick="showTestimonialForm()" class="add-testimonial-btn">Ajouter un témoignage</button>
+                    </div>
+                    
+                    <div id="testimonialForm" class="testimonial-form">
+                        <h4 style="margin-bottom: 1rem; color: #667eea;">Partagez votre expérience</h4>
+                        <form onsubmit="addTestimonial(event)">
+                            <div class="form-group">
+                                <label for="testimonialName">Nom et première lettre du nom de famille</label>
+                                <input type="text" id="testimonialName" name="testimonialName" placeholder="Ex: Jean-Pierre M." required>
+                            </div>
+                            <div class="form-group">
+                                <label for="testimonialJob">Métier et ville</label>
+                                <input type="text" id="testimonialJob" name="testimonialJob" placeholder="Ex: Électricien - Gap" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="testimonialText">Votre témoignage</label>
+                                <textarea id="testimonialText" name="testimonialText" rows="4" placeholder="Partagez votre expérience avec nos formations..." required></textarea>
+                            </div>
+                            <div style="display: flex; gap: 1rem;">
+                                <button type="submit" class="submit-btn" style="flex: 1;">Publier</button>
+                                <button type="button" onclick="hideTestimonialForm()" class="submit-btn" style="flex: 1; background: #ccc;">Annuler</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title">Contactez-nous</h2>
+            <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
+                <div class="form-group">
+                    <label for="nom">Nom complet</label>
+                    <input type="text" id="nom" name="nom" required>
+                </div>
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                <div class="form-group">
+                    <label for="telephone">Téléphone</label>
+                    <input type="tel" id="telephone" name="telephone">
+                </div>
+                <div class="form-group">
+                    <label for="formation">Formation d'intérêt</label>
+                    <input type="text" id="formation" name="formation" placeholder="Quelle formation vous intéresse ?">
+                </div>
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5" placeholder="Décrivez vos besoins ou posez vos questions..."></textarea>
+                </div>
+                <button type="submit" class="submit-btn">Envoyer votre demande</button>
+            </form>
+        </div>
+    </section>
+
+ 
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Fade in animation on scroll
+        function animateOnScroll() {
+            const elements = document.querySelectorAll('.fade-in');
+            elements.forEach(element => {
+                const elementTop = element.getBoundingClientRect().top;
+                const elementVisible = 150;
+                
+                if (elementTop < window.innerHeight - elementVisible) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        window.addEventListener('scroll', animateOnScroll);
+        animateOnScroll(); // Initial check
+
+        // Testimonials management
+        function showTestimonialForm() {
+            document.getElementById('testimonialForm').classList.add('active');
+        }
+
+        function hideTestimonialForm() {
+            document.getElementById('testimonialForm').classList.remove('active');
+        }
+
+        function addTestimonial(event) {
+            event.preventDefault();
+            
+            const form = event.target;
+            const name = form.testimonialName.value;
+            const job = form.testimonialJob.value;
+            const text = form.testimonialText.value;
+            
+            // Create new testimonial element
+            const testimonialContainer = document.querySelector('.testimonial-container');
+            const newTestimonial = document.createElement('div');
+            newTestimonial.className = 'testimonial-item';
+            newTestimonial.innerHTML = `
+                <div class="testimonial-content">
+                    <p>"${text}"</p>
+                    <div class="testimonial-author">
+                        <strong>${name}</strong>
+                        <span>${job}</span>
+                    </div>
+                </div>
+            `;
+            
+            testimonialContainer.appendChild(newTestimonial);
+            
+            // Reset form and hide it
+            form.reset();
+            hideTestimonialForm();
+            
+            // Show success message
+            alert('Merci pour votre témoignage ! Il a été ajouté avec succès.');
+        }
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Simulate form submission
+            const submitBtn = event.target.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Envoi en cours...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Merci pour votre message ! Nous vous recontacterons dans les plus brefs délais.');
+                event.target.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+
+        // Header background on scroll
+window.addEventListener('scroll', () => {
+    const header = document.querySelector('header');
+    
+    // Si le défilement est supérieur à 100 pixels
+    if (window.scrollY > 100) {
+        // AJOUTE la classe CSS 'scrolled-header'
+        header.classList.add('scrolled-header');
+    } else {
+        // RETIRE la classe CSS 'scrolled-header'
+        header.classList.remove('scrolled-header');
+    }
+});
+    </script>
+</body>
+
+</html>
+
+
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EURL Eric Seignol - Formid'Alpes</h3>
+                    <p>Organisme de formation spécialisé dans les domaines techniques et industriels, au service des professionnels des Hautes-Alpes.</p>
+                    <p><strong>SIRET :</strong> 990 673 683 00019</p>
+                    <p><strong>Déclaration d'activité :</strong> 93050092005</p>
+                    <p><small>Préfet de région Provence-Alpes-Côte d'Azur</small></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📧 contact@formid-alpes.fr</p>
+                    <p>📞 06 86 51 93 40</p>
+                    <p>📍 34, Chemin du grain de blé<br>05000 Gap</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Zone d'intervention</h3>
+                    <p><strong>Principale :</strong> Hautes-Alpes (05)</p>
+                    <p><strong>Secondaire :</strong> Alpes de Haute-Provence (04)</p>
+                    <p><a href="#">Catalogue formations</a></p>
+                    <p><a href="#">--------------------</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Formid'Alpes. Tous droits réservés.</p>
+            </div>
+    </footer>
+    
+    </body>
+</html>
