@@ -153,6 +153,14 @@ window.addEventListener('load', chargerTemoignages);
         // Header background on scroll
         window.addEventListener('scroll', () => {
             const header = document.querySelector('header');
+			    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    // Si les éléments existent et que le menu est actif, on le ferme
+    if (menuToggle && navLinks && navLinks.classList.contains('active')) {
+        navLinks.classList.remove('active');
+        menuToggle.classList.remove('active');
+    }
             
             // Si le défilement est supérieur à 100 pixels
             if (window.scrollY > 100) {
