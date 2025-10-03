@@ -203,11 +203,23 @@ function chargerTemoignages() {
     fetch(JSON_FEED_URL)
         .then(response => response.text())
         .then(text => {
-            // 2. Extrait le JSON pur du texte reçu (supprime la fonction google)
-            const jsonText = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+            // *** CORRECTION pour gérer l'enveloppe de la fonction ***
+            
+            // 1. Cherche le début et la fin de l'objet JSON pur
+            const jsonStart = text.indexOf('{');
+            const jsonEnd = text.lastIndexOf('}') + 1;
+            
+            if (jsonStart === -1 || jsonEnd <= jsonStart) {
+                throw new Error("Impossible de trouver l'objet JSON dans la réponse de Google.");
+            }
+            
+            // 2. Extrait l'objet JSON pur
+            const jsonText = text.substring(jsonStart, jsonEnd);
+            
+            // 3. Parse le JSON (c'est cette ligne qui échouait avant)
             const data = JSON.parse(jsonText);
             
-            // 3. Récupère les lignes de données
+            // 4. Récupère les lignes de données
             const rows = data.table.rows;
             
             // 4. Convertit les lignes en objets lisibles
