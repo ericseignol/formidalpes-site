@@ -548,8 +548,28 @@ footer {
         display: block; /* Le bouton hamburger apparaît */
     }
 
-    .nav-links {
-        display: none; /* La navigation classique disparaît */
+        .nav-links {
+        display: none; 
+        /* ... autres styles pour le cacher (ex: position, transformation) */
+    }
+
+    /* Affiche les liens quand la classe 'active' est ajoutée par JS */
+    .nav-links.active {
+        display: flex; /* ou block, selon votre mise en page souhaitée */
+        flex-direction: column; 
+        /* Positionne le menu en plein écran ou juste sous le header */
+        position: absolute; 
+        top: 60px; /* Ajustez cette valeur à la hauteur de votre header */
+        left: 0;
+        width: 100%;
+        background-color: #1f2937; /* Couleur de fond pour le menu ouvert */
+        z-index: 999;
+        /* ... assurez-vous que les liens sont empilés verticalement ... */
+    }
+    
+    /* Le bouton hamburger doit être visible sur mobile */
+    .menu-toggle {
+        display: block; 
     }
 
     /* 2. S'assurer que le header maintient un espacement logique */

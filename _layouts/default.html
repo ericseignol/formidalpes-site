@@ -163,6 +163,26 @@ window.addEventListener('load', chargerTemoignages);
                 header.classList.remove('scrolled-header');
             }
         });
+		
+// --- FONCTIONNALITÉ DU MENU MOBILE (HAMBURGER) ---
+function setupMobileMenu() {
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navLinks = document.querySelector('.nav-links');
+    
+    // Vérifie que les éléments existent sur la page avant d'ajouter l'écouteur
+    if (menuToggle && navLinks) {
+        menuToggle.addEventListener('click', () => {
+            // Bascule la classe 'active' sur le bouton (pour l'animation de la croix)
+            menuToggle.classList.toggle('active');
+            
+            // Bascule la classe 'active' sur la liste des liens (pour l'affichage)
+            navLinks.classList.toggle('active');
+        });
+    }
+}
+
+// Appeler cette fonction pour qu'elle s'exécute au chargement de la page
+window.addEventListener('load', setupMobileMenu);
     </script>
     </body>
 </html>
