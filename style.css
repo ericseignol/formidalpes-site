@@ -534,6 +534,17 @@ footer {
     .stats {
         grid-template-columns: 1fr;
     }
+	
+	nav {
+        /* Par exemple, masquer la liste des liens pour faire de la place */
+        /* display: none; */ 
+    }
+    
+    /* Si les éléments du header ne tiennent plus sur une seule ligne, forcez-les à aller à la ligne */
+    header {
+        flex-wrap: wrap; 
+        justify-content: center; /* Ou changez l'alignement pour les centrer */
+    }
 }
 
 /* ---------------------------------------------------- */
