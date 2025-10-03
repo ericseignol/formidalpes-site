@@ -8,15 +8,15 @@ body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     line-height: 1.6;
     color: #333;
-    overflow-x: hidden;
+    /* IMPORTANT : Maintient le scrolling vertical et cache le débordement horizontal */
+    overflow-x: hidden; 
     background-color: #f9fbfc;
 }
-/* NOUVELLE RÈGLE GLOBALE */
+
 a {
     text-decoration: none;
     color: inherit;
 }
-/* FIN NOUVELLE RÈGLE GLOBALE */
 
 .container {
     max-width: 1200px;
@@ -28,7 +28,6 @@ a {
 /* Header */
 /* ---------------------------------------------------- */
 header {
-    /* DÉGRADÉ CLAIR INITIAL (pour le haut de page) */
     background: linear-gradient(135deg, #A7D9ED 0%, #76A6BF 100%); 
     color: white;
     padding: 15px 0;
@@ -37,20 +36,17 @@ header {
     top: 0;
     left: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); /* Ombre légère pour le début */
-    transition: background 0.4s ease, padding 0.4s ease; /* Transition douce */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
+    transition: background 0.4s ease, padding 0.4s ease; 
 }
 
-/* NOUVELLE CLASSE POUR LE DÉFILEMENT (AJOUTÉE PAR JAVASCRIPT) */
-/* Rendre le header plus foncé et uniforme quand on scroll, pour une meilleure visibilité. */
+/* Changement au défilement */
 header.scrolled-header {
-    /* COULEUR UNIFORME : Bleu-gris foncé du logo, assure la visibilité du texte blanc/orange */
     background: #354859; 
-    padding: 10px 0; /* Réduit un peu la hauteur */
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3); /* Ombre plus marquée */
+    padding: 10px 0; 
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
-/* S'assurer que les liens/texte restent blancs et le survol orange */
 header.scrolled-header .nav-links a {
     color: white;
 }
@@ -59,37 +55,35 @@ header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-	width: 100%;
+    width: 100%;
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 20px;
 }
 
 .logo {
+    font-size: 1.8rem;
+    font-weight: bold;
     text-decoration: none;
     color: white; 
     display: flex;
     align-items: center;
-	max-width: 100%;
+    /* IMPORTANT : Ajout d'une limite de taille relative */
+    max-width: 80%; 
 }
 
 .header-logo {
     height: 40px; 
     width: auto;
     vertical-align: middle;
+    /* CRUCIAL pour que l'image ne déborde pas */
+    max-width: 100%; 
 }
 
 nav {
     display: flex;
     justify-content: space-between;
     align-items: center;
-}
-
-.logo {
-    font-size: 1.8rem;
-    font-weight: bold;
-    text-decoration: none;
-    color: white;
 }
 
 .nav-links {
@@ -106,7 +100,7 @@ nav {
 }
 
 .nav-links a:hover {
-    color: #f97316; /* Orange Vif */
+    color: #f97316; 
     transform: translateY(-2px);
 }
 
@@ -126,13 +120,29 @@ nav {
 }
 
 /* ---------------------------------------------------- */
+/* Menu Hamburger (Bureau) */
+/* ---------------------------------------------------- */
+
+/* Masque le bouton hamburger par défaut sur les grands écrans */
+.menu-toggle {
+    display: none; 
+    background: none;
+    border: none;
+    font-size: 1.8rem;
+    color: white;
+    cursor: pointer;
+    /* Assure la bonne position dans le header */
+    z-index: 1001; 
+}
+
+/* ---------------------------------------------------- */
 /* Hero Section */
 /* ---------------------------------------------------- */
 .hero {
-    /* DÉGRADÉ CLAIR pour le hero */
     background: linear-gradient(135deg, #A7D9ED 0%, #76A6BF 100%);
     color: white;
-    padding: 150px 0 100px;
+    /* Augmente le padding top pour compenser le header fixé */
+    padding: 150px 0 100px; 
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -515,10 +525,25 @@ footer {
 /* Responsive */
 /* ---------------------------------------------------- */
 @media (max-width: 768px) {
-    .nav-links {
-        display: none;
+    
+    /* 1. Afficher le bouton menu et masquer les liens normaux */
+    .menu-toggle {
+        display: block; /* Le bouton hamburger apparaît */
     }
 
+    .nav-links {
+        display: none; /* La navigation classique disparaît */
+    }
+
+    /* 2. S'assurer que le header maintient un espacement logique */
+    header .container {
+        /* Garde le logo et l'icône de menu bien espacés */
+        justify-content: space-between;
+        /* Empêche les éléments de s'enrouler si la place est très limitée */
+        flex-wrap: nowrap; 
+    }
+    
+    /* 3. Ajustements de contenu (OK) */
     .hero h1 {
         font-size: 2.5rem;
     }
@@ -534,16 +559,10 @@ footer {
     .stats {
         grid-template-columns: 1fr;
     }
-	
-	nav {
-        /* Par exemple, masquer la liste des liens pour faire de la place */
-        /* display: none; */ 
-    }
     
-    /* Si les éléments du header ne tiennent plus sur une seule ligne, forcez-les à aller à la ligne */
-    header {
-        flex-wrap: wrap; 
-        justify-content: center; /* Ou changez l'alignement pour les centrer */
+    .footer-content {
+        grid-template-columns: 1fr;
+        text-align: left;
     }
 }
 
