@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     
-    <title>Formatioon de formateurs | Formid'Alpes</title>
+    <title>Accueil et Formations | Formid'Alpes</title>
     
     <link rel="icon" type="image/x-icon" href="/favicon.ico">
     
@@ -35,99 +35,45 @@
     <main>
                 <section class="hero" style="padding-top: 100px; padding-bottom: 50px;">
             <div class="hero-content container">
-                <h1>Devenez Formateur Professionnel</h1>
-                <p>Acquérez les compétences pédagogiques pour transmettre votre expertise</p>
+                <h1>Contactez-nous</h1>
+                <p>Nous sommes là pour répondre à toutes vos questions.</p>
             </div>
         </section>
 
-        <section class="section training-detail-section">
+        <section id="contact" class="section">
             <div class="container">
-                <div class="training-detail-content fade-in">
-                    <h2>Détail de la Formation "Devenir Formateur"</h2>
-                    <p>Vous êtes un expert dans votre domaine et vous souhaitez partager vos connaissances ? Cette formation est conçue pour vous doter des compétences pédagogiques et didactiques essentielles pour concevoir, animer et évaluer des actions de formation efficaces et engageantes, quel que soit votre secteur d'activité.</p>
-
-                    <h3>Objectifs de la Formation</h3>
-                    <ul>
-                        <li>Comprendre les principes fondamentaux de l'andragogie (pédagogie des adultes).</li>
-                        <li>Maîtriser les étapes de la conception d'un module de formation.</li>
-                        <li>Développer des techniques d'animation dynamiques et participatives.</li>
-                        <li>Savoir gérer un groupe et les situations difficiles en formation.</li>
-                        <li>Évaluer l'apprentissage et l'efficacité d'une formation.</li>
-                        <li>Adapter sa posture et sa communication en tant que formateur.</li>
-                    </ul>
-
-                    <h3>Public Cible</h3>
-                    <p>Tout professionnel souhaitant devenir formateur occasionnel ou régulier, expert métier appelé à transmettre ses compétences, tuteur en entreprise, ou toute personne en charge de la formation en interne.</p>
-
-                    <h3>Programme Détaillé</h3>
-                    <ul>
-                        <li>**Module 1 : Les Fondamentaux de la Pédagogie des Adultes**
-                            <ul>
-                                <li>Spécificités de l'apprentissage chez l'adulte (andragogie).</li>
-                                <li>Les différents styles d'apprentissage.</li>
-                                <li>Le rôle et la posture du formateur.</li>
-                            </ul>
-                        </li>
-                        <li>**Module 2 : Concevoir une Action de Formation**
-                            <ul>
-                                <li>Analyse des besoins et définition des objectifs pédagogiques.</li>
-                                <li>Structuration des contenus et élaboration du scénario pédagogique.</li>
-                                <li>Choix des méthodes et outils pédagogiques (cas pratiques, jeux de rôle...).</li>
-                                <li>Création des supports de formation (slides, exercices, documents...).</li>
-                            </ul>
-                        </li>
-                        <li>**Module 3 : Animer une Formation Efficace**
-                            <ul>
-                                <li>Techniques d'animation : introductive, participative, conclusive.</li>
-                                <li>Gestion du temps et de l'espace de formation.</li>
-                                <li>Communication verbale et non-verbale du formateur.</li>
-                                <li>Susciter l'interaction et l'engagement des participants.</li>
-                            </ul>
-                        </li>
-                        <li>**Module 4 : Gérer le Groupe et les Situations Spécifiques**
-                            <ul>
-                                <li>Dynamique de groupe et gestion des personnalités différentes.</li>
-                                <li>Faire face aux questions difficiles, aux objections et aux résistances.</li>
-                                <li>Gérer les imprévus et adapter sa formation en temps réel.</li>
-                            </ul>
-                        </li>
-                        <li>**Module 5 : Évaluer la Formation et l'Apprentissage**
-                            <ul>
-                                <li>Les différents types d'évaluation (à chaud, à froid, formative, sommative).</li>
-                                <li>Concevoir des outils d'évaluation pertinents.</li>
-                                <li>Mesurer l'atteinte des objectifs et l'impact de la formation.</li>
-                            </ul>
-                        </li>
-                        <li>**Module 6 : Préparation et Passage à l'Action (Mise en Situation)**
-                            <ul>
-                                <li>Préparation d'une séquence de formation par chaque participant.</li>
-                                <li>Mises en situation pratiques filmées et débriefing constructif.</li>
-                                <li>Plan d'action individuel pour la mise en œuvre des acquis.</li>
-                            </ul>
-                        </li>
-                    </ul>
-
-                    <h3>Prérequis</h3>
-                    <p>Expérience significative dans un domaine d'expertise que vous souhaitez transmettre.</p>
-
-                    <h3>Durée de la formation</h3>
-                    <p>3 jours (21 heures).</p>
-
-                    <h3>Certification</h3>
-                    <p>Attestation de fin de formation Formid'Alpes.</p>
-                </div>
-
-                <div class="contact-link-footer fade-in">
-                    <a href="contact.html" class="cta-button">Intéressé(e) par cette formation ? Contactez-nous !</a>
-                </div>
+                <h2 class="section-title">Envoyez-nous un message</h2>
+                <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
+                    <div class="form-group">
+                        <label for="nom">Nom complet</label>
+                        <input type="text" id="nom" name="nom" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="telephone">Téléphone</label>
+                        <input type="tel" id="telephone" name="telephone">
+                    </div>
+                    <div class="form-group">
+                        <label for="formation">Formation d'intérêt</label>
+                        <input type="text" id="formation" name="formation" placeholder="Quelle formation vous intéresse ?">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" rows="5" placeholder="Décrivez vos besoins ou posez vos questions..."></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Envoyer votre demande</button>
+                </form>
             </div>
         </section>
     </main>
 
-    
 
-    <script src="script.js"></script> <script>
-        // Smooth scrolling for navigation links (si non géré par un script.js externe)
+
+    <script>
+        // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
@@ -141,7 +87,7 @@
             });
         });
 
-        // Fade in animation on scroll (si non géré par un script.js externe)
+        // Fade in animation on scroll
         function animateOnScroll() {
             const elements = document.querySelectorAll('.fade-in');
             elements.forEach(element => {
@@ -157,7 +103,29 @@
         window.addEventListener('scroll', animateOnScroll);
         animateOnScroll(); // Initial check
 
-       // Header background on scroll
+        function handleSubmit(event) {
+            event.preventDefault();
+            
+            // Get form data
+            const formData = new FormData(event.target);
+            const data = Object.fromEntries(formData.entries());
+            
+            // Simulate form submission
+            const submitBtn = event.target.querySelector('.submit-btn');
+            const originalText = submitBtn.textContent;
+            
+            submitBtn.textContent = 'Envoi en cours...';
+            submitBtn.disabled = true;
+            
+            setTimeout(() => {
+                alert('Merci pour votre message ! Nous vous recontacterons dans les plus brefs délais.');
+                event.target.reset();
+                submitBtn.textContent = originalText;
+                submitBtn.disabled = false;
+            }, 2000);
+        }
+
+      // Header background on scroll
 window.addEventListener('scroll', () => {
     const header = document.querySelector('header');
     

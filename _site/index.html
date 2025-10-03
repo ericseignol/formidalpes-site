@@ -153,35 +153,69 @@
     <section id="contact" class="section">
         <div class="container">
             <h2 class="section-title">Contactez-nous</h2>
-            <form class="contact-form fade-in" onsubmit="handleSubmit(event)">
-                <div class="form-group">
-                    <label for="nom">Nom complet</label>
-                    <input type="text" id="nom" name="nom" required>
-                </div>
-                <div class="form-group">
-                    <label for="email">Email</label>
-                    <input type="email" id="email" name="email" required>
-                </div>
-                <div class="form-group">
-                    <label for="telephone">Téléphone</label>
-                    <input type="tel" id="telephone" name="telephone">
-                </div>
-                <div class="form-group">
-                    <label for="formation">Formation d'intérêt</label>
-                    <input type="text" id="formation" name="formation" placeholder="Quelle formation vous intéresse ?">
-                </div>
-                <div class="form-group">
-                    <label for="message">Message</label>
-                    <textarea id="message" name="message" rows="5" placeholder="Décrivez vos besoins ou posez vos questions..."></textarea>
-                </div>
-                <button type="submit" class="submit-btn">Envoyer votre demande</button>
-            </form>
+            <form 
+    class="contact-form fade-in" 
+    action="https://formspree.io/f/meorkvbw" 
+    method="POST" 
+> 
+    <div class="form-group">
+        <label for="nom">Nom complet</label>
+        <input type="text" id="nom" name="Nom complet" required> </div>
+    <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="Email" required> </div>
+    <div class="form-group">
+        <label for="telephone">Téléphone</label>
+        <input type="tel" id="telephone" name="Téléphone"> </div>
+    <div class="form-group">
+        <label for="formation">Formation d'intérêt</label>
+        <input type="text" id="formation" name="Formation intéressée" placeholder="Quelle formation vous intéresse ?"> </div>
+    <div class="form-group">
+        <label for="message">Message</label>
+        <textarea id="message" name="Message" rows="5" placeholder="Décrivez vos besoins ou posez vos questions..."></textarea> </div>
+    <button type="submit" class="submit-btn">Envoyer votre demande</button>
+</form>
         </div>
     </section>
 
- 
+</body>
 
-    <script>
+</html>
+
+
+
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>EURL Eric Seignol - Formid'Alpes</h3>
+                    <p>Organisme de formation spécialisé dans les domaines techniques et industriels, au service des professionnels des Hautes-Alpes.</p>
+                    <p><strong>SIRET :</strong> 990 673 683 00019</p>
+                    <p><strong>Déclaration d'activité :</strong> 93050092005</p>
+                    <p><small>Préfet de région Provence-Alpes-Côte d'Azur</small></p>
+                </div>
+                <div class="footer-section">
+                    <h3>Contact</h3>
+                    <p>📧 contact@formid-alpes.fr</p>
+                    <p>📞 06 86 51 93 40</p>
+                    <p>📍 34, Chemin du grain de blé<br>05000 Gap</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Zone d'intervention</h3>
+                    <p><strong>Principale :</strong> Hautes-Alpes (05)</p>
+                    <p><strong>Secondaire :</strong> Alpes de Haute-Provence (04)</p>
+                    <p><a href="#">Catalogue formations</a></p>
+                    <p><a href="#">--------------------</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 Formid'Alpes. Tous droits réservés.</p>
+            </div>
+    </footer>
+    
+	<script>
         // Smooth scrolling for navigation links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -252,78 +286,20 @@
             // Show success message
             alert('Merci pour votre témoignage ! Il a été ajouté avec succès.');
         }
-        function handleSubmit(event) {
-            event.preventDefault();
-            
-            // Get form data
-            const formData = new FormData(event.target);
-            const data = Object.fromEntries(formData.entries());
-            
-            // Simulate form submission
-            const submitBtn = event.target.querySelector('.submit-btn');
-            const originalText = submitBtn.textContent;
-            
-            submitBtn.textContent = 'Envoi en cours...';
-            submitBtn.disabled = true;
-            
-            setTimeout(() => {
-                alert('Merci pour votre message ! Nous vous recontacterons dans les plus brefs délais.');
-                event.target.reset();
-                submitBtn.textContent = originalText;
-                submitBtn.disabled = false;
-            }, 2000);
-        }
-
+        
         // Header background on scroll
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    
-    // Si le défilement est supérieur à 100 pixels
-    if (window.scrollY > 100) {
-        // AJOUTE la classe CSS 'scrolled-header'
-        header.classList.add('scrolled-header');
-    } else {
-        // RETIRE la classe CSS 'scrolled-header'
-        header.classList.remove('scrolled-header');
-    }
-});
+        window.addEventListener('scroll', () => {
+            const header = document.querySelector('header');
+            
+            // Si le défilement est supérieur à 100 pixels
+            if (window.scrollY > 100) {
+                // AJOUTE la classe CSS 'scrolled-header'
+                header.classList.add('scrolled-header');
+            } else {
+                // RETIRE la classe CSS 'scrolled-header'
+                header.classList.remove('scrolled-header');
+            }
+        });
     </script>
-</body>
-
-</html>
-
-
-
-    </main>
-
-    <footer>
-        <div class="container">
-            <div class="footer-content">
-                <div class="footer-section">
-                    <h3>EURL Eric Seignol - Formid'Alpes</h3>
-                    <p>Organisme de formation spécialisé dans les domaines techniques et industriels, au service des professionnels des Hautes-Alpes.</p>
-                    <p><strong>SIRET :</strong> 990 673 683 00019</p>
-                    <p><strong>Déclaration d'activité :</strong> 93050092005</p>
-                    <p><small>Préfet de région Provence-Alpes-Côte d'Azur</small></p>
-                </div>
-                <div class="footer-section">
-                    <h3>Contact</h3>
-                    <p>📧 contact@formid-alpes.fr</p>
-                    <p>📞 06 86 51 93 40</p>
-                    <p>📍 34, Chemin du grain de blé<br>05000 Gap</p>
-                </div>
-                <div class="footer-section">
-                    <h3>Zone d'intervention</h3>
-                    <p><strong>Principale :</strong> Hautes-Alpes (05)</p>
-                    <p><strong>Secondaire :</strong> Alpes de Haute-Provence (04)</p>
-                    <p><a href="#">Catalogue formations</a></p>
-                    <p><a href="#">--------------------</a></p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2025 Formid'Alpes. Tous droits réservés.</p>
-            </div>
-    </footer>
-    
     </body>
 </html>
