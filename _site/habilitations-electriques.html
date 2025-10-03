@@ -248,7 +248,7 @@ function chargerTemoignages() {
             const temoignages = rows.reverse().map(row => {
                 // Utilise une expression régulière pour séparer les colonnes, 
                 // gérant les virgules à l'intérieur des guillemets (si le stagiaire met une virgule)
-                const cols = row.match(/(".*?"|[^",]+)(?=\s*,|\s*$)/g).map(col => col.trim().replace(/^"|"$/g, ''));
+                const cols = row.split(',').map(col => col.trim().replace(/^"|"$/g, ''));
                 
                 // Mappage des données avec les indices corrects
                 return {
