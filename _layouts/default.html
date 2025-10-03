@@ -44,8 +44,22 @@ const COL_INDICES = {
 };
 
 function chargerTemoignages() {
-    const container = document.getElementById('temoignages-recent');
-    if (!container) return; 
+    // 1. Détermine quel conteneur utiliser
+    const isHomePage = document.getElementById('temoignages-recent');
+    const isArchivesPage = document.getElementById('temoignages-complet');
+    
+    let container;
+    let maxAvis;
+
+    if (isHomePage) {
+        container = isHomePage;
+        maxAvis = 3; // N'affiche que les 3 derniers sur l'accueil
+    } else if (isArchivesPage) {
+        container = isArchivesPage;
+        maxAvis = Infinity; // Affiche TOUS les avis sur la page dédiée
+    } else {
+        return; // Quitte si aucun conteneur n'est trouvé
+    } 
 
     container.innerHTML = `<p style="text-align: center;">Chargement des avis en cours...</p>`;
 
@@ -76,6 +90,14 @@ function chargerTemoignages() {
 
             // 4. Vider le conteneur et afficher
             container.innerHTML = '';
+			
+			// UTILISE maxAvis au lieu du chiffre 3 codé en dur
+            const temoignagesAAfficher = temoignages.slice(0, maxAvis); 
+
+            if (temoignagesAAfficher.length === 0) {
+                 container.innerHTML = `<p style="text-align: center;">Aucun avis n'a encore été publié.</p>`;
+                 return;
+            }
             
             const temoignagesAAfficher = temoignages.slice(0, MAX_TEMOIGNAGES);
 
