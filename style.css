@@ -538,6 +538,18 @@ footer {
     color: #999;
 }
 
+/* --- Styles pour les liens sociaux dans le pied de page --- */
+.social-links a {
+    color: white; /* ou la couleur de votre texte de footer */
+    font-size: 24px; /* Taille de l'icône */
+    margin: 0 10px;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: #3b5998; /* Couleur de la marque Facebook au survol */
+}
+
 /* ---------------------------------------------------- */
 /* Responsive */
 /* ---------------------------------------------------- */
