@@ -1,0 +1,15 @@
+# Configuration du Site
+title: Formid'Alpes - Formations Professionnelles
+email: contact@formid-alpes.fr
+description: >- # Cette description sera utilisée par Google
+  Organisme de formation spécialisé en énergies renouvelables et électricité.
+baseurl: "" # Laissez vide si le site est à la racine de votre domaine (https://votre-site.com/)
+url: "http://formid-alpes.fr/" # Remplacez par votre URL principale
+
+# Construction (Build settings)
+markdown: kramdown
+theme: minima # Utilisez un thème minimal par défaut ou laissez vide
+
+# Activation des Plugins
+plugins:
+  - jekyll-sitemap
