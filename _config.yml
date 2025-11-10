@@ -13,3 +13,4 @@ theme: minima # Utilisez un thème minimal par défaut ou laissez vide
 # Activation des Plugins
 plugins:
   - jekyll-sitemap
+  - jekyll-seo-tag # Ajout de la balise SEO

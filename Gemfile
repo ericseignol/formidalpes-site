@@ -5,3 +5,4 @@ gem "github-pages", group: :jekyll_plugins
 
 # Votre plugin sitemap
 gem "jekyll-sitemap"
+gem "jekyll-seo-tag"
