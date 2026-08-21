@@ -3,7 +3,7 @@ layout: default
 title: RPS
 ---
 
-        <section class="hero" style="padding-top: 100px; padding-bottom: 50px;">
+        <section class="hero compact-hero">
             <div class="hero-content container">
                 <h1>Prévention des Risques Psychosociaux (RPS)</h1>
                 <p>Identifiez, évaluez et prévenez les risques liés au travail sur la santé mentale</p>
@@ -14,7 +14,7 @@ title: RPS
             <div class="container">
                 <div class="training-detail-content fade-in">
                     <h2>Détail de la Formation "Prévention des Risques Psychosociaux" (RPS)</h2>
-                    <p>Les **Risques Psychosociaux (RPS)** constituent un enjeu majeur pour la santé et le bien-être des salariés, ainsi que pour la performance des organisations. Cette formation vous donne les outils et les méthodes pour comprendre, identifier, évaluer et prévenir les RPS au sein de votre entreprise, en adoptant une démarche proactive et conforme à la réglementation.</p>
+                    <p>Les <strong>Risques Psychosociaux (RPS)</strong> constituent un enjeu majeur pour la santé et le bien-être des salariés, ainsi que pour la performance des organisations. Cette formation vous donne les outils et les méthodes pour comprendre, identifier, évaluer et prévenir les RPS au sein de votre entreprise, en adoptant une démarche proactive et conforme à la réglementation.</p>
 
                     <h3>Objectifs de la Formation</h3>
                     <ul>
@@ -31,14 +31,14 @@ title: RPS
 
                     <h3>Programme Détaillé</h3>
                     <ul>
-                        <li>**Module 1 : Comprendre les Risques Psychosociaux**
+                        <li><strong>Module 1 : Comprendre les Risques Psychosociaux</strong>
                             <ul>
                                 <li>Définitions et typologie des RPS (stress professionnel, harcèlement moral, violences externes/internes, burn-out, bore-out).</li>
                                 <li>Les conséquences des RPS sur la santé des individus et la performance de l'entreprise.</li>
                                 <li>Le cadre légal et les obligations de l'employeur en matière de prévention des RPS.</li>
                             </ul>
                         </li>
-                        <li>**Module 2 : Identifier et Évaluer les RPS**
+                        <li><strong>Module 2 : Identifier et Évaluer les RPS</strong>
                             <ul>
                                 <li>Les indicateurs de RPS (absentéisme, turn-over, plaintes, etc.).</li>
                                 <li>Méthodologies d'évaluation des RPS (questionnaires, entretiens, groupes de travail).</li>
@@ -46,7 +46,7 @@ title: RPS
                                 <li>Analyse des facteurs de RPS liés à l'organisation du travail.</li>
                             </ul>
                         </li>
-                        <li>**Module 3 : Prévenir les RPS : La Démarche et les Actions**
+                        <li><strong>Module 3 : Prévenir les RPS : La Démarche et les Actions</strong>
                             <ul>
                                 <li>Les principes de la prévention primaire, secondaire et tertiaire.</li>
                                 <li>Élaboration et mise en œuvre d'un plan d'action de prévention.</li>
@@ -54,7 +54,7 @@ title: RPS
                                 <li>Le rôle du management de proximité dans la prévention.</li>
                             </ul>
                         </li>
-                        <li>**Module 4 : Réagir et Accompagner**
+                        <li><strong>Module 4 : Réagir et Accompagner</strong>
                             <ul>
                                 <li>La gestion des situations de crise et des alertes.</li>
                                 <li>Le rôle de l'encadrement face à un salarié en difficulté.</li>
@@ -62,7 +62,7 @@ title: RPS
                                 <li>La communication autour des RPS.</li>
                             </ul>
                         </li>
-                        <li>**Module 5 : Cas Pratiques et Échanges**
+                        <li><strong>Module 5 : Cas Pratiques et Échanges</strong>
                             <ul>
                                 <li>Analyse de situations concrètes.</li>
                                 <li>Exercices de mise en pratique des outils.</li>
@@ -82,59 +82,7 @@ title: RPS
                 </div>
 
                 <div class="contact-link-footer fade-in">
-                    <a href="contact.html" class="cta-button">Intéressé(e) par cette formation ? Contactez-nous !</a>
+                    <a href="/contact.html" class="cta-button">Intéressé(e) par cette formation ? Contactez-nous !</a>
                 </div>
             </div>
         </section>
-    </main>
-
-
-
-    <script src="script.js"></script> <script>
-        // Smooth scrolling for navigation links (si non géré par un script.js externe)
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Fade in animation on scroll (si non géré par un script.js externe)
-        function animateOnScroll() {
-            const elements = document.querySelectorAll('.fade-in');
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.classList.add('visible');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', animateOnScroll);
-        animateOnScroll(); // Initial check
-
-       // Header background on scroll
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    
-    // Si le défilement est supérieur à 100 pixels
-    if (window.scrollY > 100) {
-        // AJOUTE la classe CSS 'scrolled-header'
-        header.classList.add('scrolled-header');
-    } else {
-        // RETIRE la classe CSS 'scrolled-header'
-        header.classList.remove('scrolled-header');
-    }
-});
-    </script>
-</body>
-
-</html>

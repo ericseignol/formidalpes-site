@@ -6,8 +6,8 @@ title: Accueil
 <section id="accueil" class="hero">
     <div class="hero-content container">
         <img src="/logo-transparent-png.png" alt="Formid'Alpes" class="hero-logo-img">
-        <h2 class="section-title">Formations Formidables dans les Hautes-Alpes</h2>
-        <p>Formations professionnelles spécialisées : Efficacité énergetique, Photovoltaïque, Électricité, Automatisme et plus encore</p>
+        <h1 class="home-hero-title">Des formations formidables dans les Hautes-Alpes</h1>
+        <p>Formations professionnelles spécialisées : efficacité énergétique, photovoltaïque, électricité, automatisme industriel, prévention et qualité de vie au travail.</p>
         <a href="#formations" class="cta-button">Découvrir nos formations</a>
     </div>
 </section>
@@ -17,41 +17,52 @@ title: Accueil
         <div class="container">
             <h2 class="section-title">Nos Domaines de Formation</h2>
             <div class="services-grid">
-                <a href="photovoltaique.html" class="service-card fade-in">
+                <a href="/photovoltaique.html" class="service-card fade-in">
     <div class="service-icon">☀️</div>
     <h3>Photovoltaïque</h3>
     <p>Comprendre et préparer l'installation de systèmes photovoltaïques : bases théoriques et réglementaires pour maîtriser l'énergie solaire.</p>
 </a>
-<a href="automatisme-industriel.html" class="service-card fade-in">
+<a href="/automatisme-industriel.html" class="service-card fade-in">
     <div class="service-icon">🔧</div>
     <h3>Automatisme Industriel</h3>
     <p>Initiation à l'automatisme industriel et à la logique API avec les solutions Schneider et Siemens pour l'industrie 4.0.</p>
 </a>
 
-<a href="formation-formateur.html" class="service-card fade-in">
+<a href="/formation-formateur.html" class="service-card fade-in">
     <div class="service-icon">🎓</div>
     <h3>Formation de Formateur</h3>
     <p>Formation complète pour développer vos compétences pédagogiques et transmettre efficacement votre expertise professionnelle.</p>
 </a>
 
-<a href="habilitations-electriques.html" class="service-card fade-in">
+<a href="/habilitations-electriques.html" class="service-card fade-in">
     <div class="service-icon">⚡</div>
     <h3>Habilitations Électriques</h3>
     <p>Formations aux habilitations électriques tous indices BT/HTA pour travailler en sécurité sur les installations électriques.</p>
 </a>
 
-<a href="formation-cse-cssct.html" class="service-card fade-in">
+<a href="/formation-cse-cssct.html" class="service-card fade-in">
     <div class="service-icon">🏢</div>
     <h3>CSE / CSSCT</h3>
     <p>Formation des membres du Comité Social et Économique et de la Commission Santé, Sécurité et Conditions de Travail.</p>
 </a>
 
-<a href="risques-psychosociaux.html" class="service-card fade-in">
+<a href="/risques-psychosociaux.html" class="service-card fade-in">
     <div class="service-icon">🧠</div>
     <h3>Risques Psychosociaux</h3>
     <p>Prévention et gestion des risques psychosociaux au travail pour préserver la santé mentale et le bien-être des salariés.</p>
 </a>
             </div>
+        </div>
+    </section>
+
+    <section class="product-strip" aria-labelledby="habilicible-accueil-title">
+        <div class="container product-strip-content fade-in">
+            <div>
+                <p class="section-eyebrow">Solution numérique pour les organismes de formation</p>
+                <h2 id="habilicible-accueil-title">Découvrez bientôt HabiliCible</h2>
+                <p>Un questionnaire guidé pour transformer les demandes imprécises en besoins de formation en habilitation électrique mieux structurés.</p>
+            </div>
+            <a href="/habilicible.html" class="secondary-button">Découvrir le projet</a>
         </div>
     </section>
 
@@ -68,20 +79,19 @@ title: Accueil
                     <p>Nos formations sont dispensées par des formateurs expérimentés, issus du terrain, qui allient expertise technique et pédagogie moderne pour garantir une montée en compétences efficace.</p>
                 </div>
                 <div class="testimonials fade-in">
-    <h3 style="text-align: center; margin-bottom: 1.5rem; color: #667eea;">Témoignages de nos stagiaires</h3>
+    <h3 class="testimonials-title">Témoignages de nos stagiaires</h3>
     
     <div class="testimonial-container" id="temoignages-recent">
-        <p style="text-align: center;">Chargement des avis en cours...</p>
+        <p class="loading-message">Chargement des avis en cours...</p>
     </div>
     
     <div class="add-testimonial">
-		<a href="/tous-les-avis.html" class="add-testimonial-btn" style="text-decoration: none;">
+		<a href="/tous-les-avis.html" class="add-testimonial-btn">
         Voir tous les avis 
 		</a>
 	</div>
     </div>
 </div>
-            </div>
         </div>
     </section>
 
@@ -89,11 +99,9 @@ title: Accueil
     <section id="contact" class="section">
         <div class="container">
             <h2 class="section-title">Contactez-nous</h2>
-            <form 
-    class="contact-form fade-in" 
-    action="https://formspree.io/f/meorkvbw" 
-    method="POST" 
-> 
+            <form class="contact-form fade-in" action="https://formspree.io/f/meorkvbw" method="POST">
+    <input type="hidden" name="_subject" value="Nouvelle demande depuis formid-alpes.fr">
+    <input type="text" name="_gotcha" class="honeypot" tabindex="-1" autocomplete="off" aria-hidden="true">
     <div class="form-group">
         <label for="nom">Nom complet</label>
         <input type="text" id="nom" name="Nom complet" required> </div>
@@ -109,13 +117,8 @@ title: Accueil
     <div class="form-group">
         <label for="message">Message</label>
         <textarea id="message" name="Message" rows="5" placeholder="Décrivez vos besoins ou posez vos questions..."></textarea> </div>
+    <p class="form-privacy">En envoyant ce formulaire, vous acceptez que Formid'Alpes utilise ces informations pour répondre à votre demande. <a href="/politique-confidentialite.html">En savoir plus</a>.</p>
     <button type="submit" class="submit-btn">Envoyer votre demande</button>
 </form>
         </div>
     </section>
-
-</body>
-
-</html>
-
-

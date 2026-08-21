@@ -1,3 +1,13 @@
+:root {
+    --brand-navy: #354859;
+    --brand-blue: #2b6383;
+    --brand-light-blue: #a7d9ed;
+    --brand-orange: #f97316;
+    --brand-ink: #1f2937;
+    --brand-muted: #5f6b76;
+    --brand-surface: #f4f8fa;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -9,7 +19,7 @@ body {
     line-height: 1.6;
     color: #333;
     /* IMPORTANT : Maintient le scrolling vertical et cache le débordement horizontal */
-    overflow-x: hidden; 
+    overflow-x: hidden;
     background-color: #f9fbfc;
 }
 
@@ -28,7 +38,7 @@ a {
 /* Header */
 /* ---------------------------------------------------- */
 header {
-    background: linear-gradient(135deg, #A7D9ED 0%, #76A6BF 100%); 
+    background: linear-gradient(135deg, #A7D9ED 0%, #76A6BF 100%);
     color: white;
     padding: 15px 0;
     position: fixed;
@@ -36,14 +46,14 @@ header {
     top: 0;
     left: 0;
     z-index: 1000;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1); 
-    transition: background 0.4s ease, padding 0.4s ease; 
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: background 0.4s ease, padding 0.4s ease;
 }
 
 /* Changement au défilement */
 header.scrolled-header {
-    background: #354859; 
-    padding: 10px 0; 
+    background: #354859;
+    padding: 10px 0;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
 }
 
@@ -65,19 +75,19 @@ header .container {
     font-size: 1.8rem;
     font-weight: bold;
     text-decoration: none;
-    color: white; 
+    color: white;
     display: flex;
     align-items: center;
     /* IMPORTANT : Ajout d'une limite de taille relative */
-    max-width: 80%; 
+    max-width: 80%;
 }
 
 .header-logo {
-    height: 40px; 
+    height: 40px;
     width: auto;
     vertical-align: middle;
     /* CRUCIAL pour que l'image ne déborde pas */
-    max-width: 100%; 
+    max-width: 100%;
 }
 
 nav {
@@ -100,7 +110,7 @@ nav {
 }
 
 .nav-links a:hover {
-    color: #f97316; 
+    color: #f97316;
     transform: translateY(-2px);
 }
 
@@ -119,20 +129,25 @@ nav {
     width: 100%;
 }
 
+.nav-links .nav-highlight {
+    color: #fff3e8;
+    font-weight: 700;
+}
+
 /* ---------------------------------------------------- */
 /* Menu Hamburger (Bureau) */
 /* ---------------------------------------------------- */
 
 /* Masque le bouton hamburger par défaut sur les grands écrans */
 .menu-toggle {
-    display: none; 
+    display: none;
     background: none;
     border: none;
     font-size: 1.8rem;
     color: white;
     cursor: pointer;
     /* Assure la bonne position dans le header */
-    z-index: 1001; 
+    z-index: 1001;
 }
 
 /* ---------------------------------------------------- */
@@ -142,7 +157,7 @@ nav {
     background: linear-gradient(135deg, #A7D9ED 0%, #76A6BF 100%);
     color: white;
     /* Augmente le padding top pour compenser le header fixé */
-    padding: 150px 0 100px; 
+    padding: 150px 0 100px;
     text-align: center;
     position: relative;
     overflow: hidden;
@@ -176,15 +191,27 @@ nav {
     animation: slideInUp 1s ease-out;
 }
 
+.home-hero-title {
+    color: white;
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.15;
+    margin-bottom: 1rem;
+}
+
 .hero p {
     font-size: 1.3rem;
     margin-bottom: 2rem;
     animation: slideInUp 1s ease-out 0.2s both;
 }
 
+.compact-hero {
+    padding-top: 100px;
+    padding-bottom: 50px;
+}
+
 .cta-button {
     display: inline-block;
-    background: #f97316;    
+    background: #f97316;
     color: white;
     padding: 15px 30px;
     text-decoration: none;
@@ -214,18 +241,18 @@ nav {
 /* --- Styles pour le Logo dans la section HERO --- */
 .hero-logo-img {
     /* Laisse le navigateur choisir la largeur, mais ne dépasse jamais sa taille originale */
-    max-width: 100%; 
-    
+    max-width: 100%;
+
     /* Assure que l'image est proportionnelle */
-    height: auto; 
-    
+    height: auto;
+
     /* Hauteur maximale pour les grands écrans (environ la taille que vous vouliez) */
-    max-height: 400px; 
-    
+    max-height: 400px;
+
     margin-bottom: 20px;
-    
+
     /* S'assurer que le logo est centré dans le flex ou le bloc parent */
-    display: block; 
+    display: block;
     margin-left: auto;
     margin-right: auto;
 }
@@ -364,6 +391,25 @@ nav {
     margin: 0 auto;
 }
 
+.testimonials-title {
+    margin-bottom: 1.5rem;
+    color: var(--brand-blue);
+    text-align: center;
+}
+
+.loading-message {
+    text-align: center;
+}
+
+.reviews-page {
+    padding-top: 120px;
+    padding-bottom: 60px;
+}
+
+.reviews-title {
+    margin-bottom: 2rem;
+}
+
 .testimonial-container {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -478,11 +524,31 @@ nav {
 .form-group input:focus,
 .form-group textarea:focus {
     outline: none;
-    border-color: #354859; 
+    border-color: #354859;
+}
+
+.form-privacy {
+    margin: -0.25rem 0 1.25rem;
+    color: #66707a;
+    font-size: 0.86rem;
+    line-height: 1.5;
+}
+
+.form-privacy a {
+    color: var(--brand-blue);
+    text-decoration: underline;
+}
+
+.honeypot {
+    position: absolute !important;
+    left: -9999px !important;
+    width: 1px !important;
+    height: 1px !important;
+    overflow: hidden !important;
 }
 
 .submit-btn {
-    background: linear-gradient(135deg, #f97316 0%, #354859 100%); 
+    background: linear-gradient(135deg, #f97316 0%, #354859 100%);
     color: white;
     padding: 15px 30px;
     border: none;
@@ -498,7 +564,7 @@ nav {
     transform: translateY(-2px);
     box-shadow: 0 5px 15px rgba(0,0,0,0.2);
 }
-        
+
 /* ---------------------------------------------------- */
 /* Footer */
 /* ---------------------------------------------------- */
@@ -538,6 +604,18 @@ footer {
     color: #999;
 }
 
+.social-heading {
+    margin-top: 1rem;
+}
+
+.legal-links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.55rem;
+    margin-top: 1rem;
+}
+
 /* --- Styles pour les liens sociaux dans le pied de page --- */
 .social-links a {
     color: white; /* ou la couleur de votre texte de footer */
@@ -547,41 +625,443 @@ footer {
 }
 
 .social-links a:hover {
-    color: #3b5998; /* Couleur de la marque Facebook au survol */
+    color: var(--brand-orange);
+}
+
+/* ---------------------------------------------------- */
+/* Pages de contenu et mentions légales */
+/* ---------------------------------------------------- */
+.training-detail-content,
+.legal-page {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.training-detail-content h2,
+.training-detail-content h3,
+.legal-page h1,
+.legal-page h2 {
+    color: var(--brand-navy);
+}
+
+.training-detail-content h2,
+.legal-page h1 {
+    margin-bottom: 1.5rem;
+}
+
+.training-detail-content h3,
+.legal-page h2 {
+    margin: 2rem 0 0.75rem;
+}
+
+.training-detail-content p,
+.training-detail-content li,
+.legal-page p,
+.legal-page li {
+    color: #4d5862;
+    line-height: 1.75;
+}
+
+.training-detail-content ul,
+.legal-page ul {
+    padding-left: 1.5rem;
+}
+
+.training-detail-content > ul > li {
+    margin-bottom: 1.1rem;
+}
+
+.contact-link-footer {
+    margin-top: 2.5rem;
+    text-align: center;
+}
+
+.legal-page {
+    padding-top: 130px;
+    padding-bottom: 70px;
+}
+
+.legal-page a {
+    color: var(--brand-blue);
+    text-decoration: underline;
+}
+
+.legal-update {
+    font-style: italic;
+}
+
+.product-strip {
+    padding: 2.25rem 0;
+    background: var(--brand-navy);
+    color: white;
+}
+
+.product-strip-content {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) auto;
+    gap: 2rem;
+    align-items: center;
+}
+
+.product-strip h2 {
+    margin: 0.25rem 0;
+    font-size: clamp(1.65rem, 3vw, 2.35rem);
+}
+
+.product-strip p:last-child {
+    color: #dbe6ec;
+}
+
+/* ---------------------------------------------------- */
+/* HabiliCible */
+/* ---------------------------------------------------- */
+.habilicible-hero {
+    background:
+        radial-gradient(circle at 85% 15%, rgba(249, 115, 22, 0.18), transparent 28%),
+        linear-gradient(135deg, #223543 0%, #2b6383 100%);
+    color: white;
+    padding: 145px 0 90px;
+    overflow: hidden;
+}
+
+.habilicible-hero-grid,
+.benefits-grid,
+.signup-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4rem;
+    align-items: center;
+}
+
+.product-badge {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.45rem 0.85rem;
+    margin-bottom: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 999px;
+    background: rgba(255, 255, 255, 0.1);
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.product-kicker,
+.section-eyebrow {
+    color: var(--brand-orange);
+    font-size: 0.86rem;
+    font-weight: 800;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.habilicible-hero h1 {
+    max-width: 760px;
+    margin: 0.65rem 0 1.25rem;
+    font-size: clamp(2.3rem, 5vw, 4.4rem);
+    line-height: 1.05;
+}
+
+.product-lead {
+    max-width: 700px;
+    color: #e5edf2;
+    font-size: 1.18rem;
+    line-height: 1.7;
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.secondary-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px 24px;
+    border: 2px solid rgba(255, 255, 255, 0.65);
+    border-radius: 50px;
+    color: white;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.secondary-button:hover {
+    border-color: white;
+    background: rgba(255, 255, 255, 0.1);
+    transform: translateY(-2px);
+}
+
+.qualification-card {
+    position: relative;
+    padding: 1.7rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.96);
+    color: var(--brand-ink);
+    box-shadow: 0 30px 70px rgba(7, 20, 30, 0.28);
+}
+
+.qualification-card-header {
+    padding-bottom: 1.2rem;
+    border-bottom: 1px solid #dce5ea;
+}
+
+.qualification-card-header span {
+    display: block;
+    color: var(--brand-muted);
+    font-size: 0.8rem;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.qualification-card-header strong {
+    display: block;
+    margin-top: 0.45rem;
+    color: var(--brand-navy);
+    font-size: 1.3rem;
+}
+
+.qualification-steps {
+    display: grid;
+    gap: 0.9rem;
+    padding: 1.25rem 0;
+}
+
+.qualification-steps > div {
+    display: grid;
+    grid-template-columns: 34px 1fr;
+    gap: 0.8rem;
+    align-items: center;
+}
+
+.qualification-steps span {
+    display: grid;
+    width: 34px;
+    height: 34px;
+    place-items: center;
+    border-radius: 50%;
+    background: #e9f2f7;
+    color: var(--brand-blue);
+    font-weight: 800;
+}
+
+.qualification-steps p,
+.qualification-result p {
+    margin: 0;
+}
+
+.qualification-result {
+    display: grid;
+    grid-template-columns: 36px 1fr;
+    gap: 0.85rem;
+    align-items: center;
+    padding: 1rem;
+    border-radius: 14px;
+    background: #edf7f0;
+    color: #254d32;
+}
+
+.qualification-result i {
+    display: grid;
+    width: 36px;
+    height: 36px;
+    place-items: center;
+    border-radius: 50%;
+    background: #d4ebda;
+}
+
+.problem-section,
+.signup-section {
+    background: var(--brand-surface);
+}
+
+.problem-section .section-eyebrow,
+.how-section .section-eyebrow {
+    text-align: center;
+}
+
+.problem-grid,
+.how-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.5rem;
+}
+
+.problem-card,
+.how-step {
+    padding: 2rem;
+    border: 1px solid #e0e8ed;
+    border-radius: 20px;
+    background: white;
+    box-shadow: 0 12px 32px rgba(31, 52, 65, 0.07);
+}
+
+.problem-card i {
+    margin-bottom: 1.25rem;
+    color: var(--brand-orange);
+    font-size: 1.8rem;
+}
+
+.problem-card h3,
+.how-step h3 {
+    margin-bottom: 0.8rem;
+    color: var(--brand-navy);
+}
+
+.problem-card p,
+.how-step p {
+    color: var(--brand-muted);
+}
+
+.how-step {
+    position: relative;
+    padding-top: 4.75rem;
+}
+
+.step-number {
+    position: absolute;
+    top: 1.5rem;
+    color: var(--brand-orange);
+    font-size: 1.8rem;
+    font-weight: 900;
+}
+
+.benefits-section {
+    background: #fff;
+}
+
+.benefits-copy h2,
+.signup-copy h2 {
+    margin: 0.6rem 0 1.5rem;
+    color: var(--brand-navy);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+}
+
+.benefit-list {
+    display: grid;
+    gap: 1rem;
+    padding: 0;
+    list-style: none;
+}
+
+.benefit-list li {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    color: var(--brand-muted);
+}
+
+.benefit-list i {
+    margin-top: 0.15rem;
+    color: var(--brand-orange);
+}
+
+.responsibility-card {
+    padding: 2.5rem;
+    border-radius: 24px;
+    background: var(--brand-navy);
+    color: white;
+    box-shadow: 0 20px 50px rgba(31, 52, 65, 0.2);
+}
+
+.responsibility-card > i {
+    margin-bottom: 1.2rem;
+    color: var(--brand-orange);
+    font-size: 2.5rem;
+}
+
+.responsibility-card h3 {
+    margin-bottom: 0.8rem;
+    font-size: 1.5rem;
+}
+
+.responsibility-card p {
+    color: #dbe6ec;
+    line-height: 1.75;
+}
+
+.signup-copy p:last-child {
+    color: var(--brand-muted);
+    font-size: 1.08rem;
+}
+
+.signup-form {
+    max-width: none;
+}
+
+.checkbox-group {
+    display: grid;
+    grid-template-columns: 20px 1fr;
+    gap: 0.75rem;
+    align-items: start;
+    margin-bottom: 1.25rem;
+}
+
+.checkbox-group input {
+    width: 18px;
+    height: 18px;
+    margin-top: 0.2rem;
+    accent-color: var(--brand-orange);
+}
+
+.checkbox-group label {
+    color: #4d5862;
+    font-size: 0.95rem;
+    line-height: 1.5;
 }
 
 /* ---------------------------------------------------- */
 /* Responsive */
 /* ---------------------------------------------------- */
-@media (max-width: 768px) {
-    
+@media (max-width: 900px) {
+
     /* 1. Afficher le bouton menu et masquer les liens normaux */
     .menu-toggle {
         display: block; /* Le bouton hamburger apparaît */
     }
 
         .nav-links {
-        display: none; 
+        display: none;
         /* ... autres styles pour le cacher (ex: position, transformation) */
     }
 
     /* Affiche les liens quand la classe 'active' est ajoutée par JS */
     .nav-links.active {
         display: flex; /* ou block, selon votre mise en page souhaitée */
-        flex-direction: column; 
+        flex-direction: column;
         /* Positionne le menu en plein écran ou juste sous le header */
-        position: absolute; 
+        position: absolute;
         top: 60px; /* Ajustez cette valeur à la hauteur de votre header */
         left: 0;
         width: 100%;
         background-color: #1f2937; /* Couleur de fond pour le menu ouvert */
         z-index: 999;
+        gap: 0;
+        padding: 0.75rem 1.25rem 1rem;
+        box-shadow: 0 12px 24px rgba(0,0,0,0.2);
         /* ... assurez-vous que les liens sont empilés verticalement ... */
     }
-    
+
+    .nav-links.active li,
+    .nav-links.active a {
+        width: 100%;
+    }
+
+    .nav-links.active a {
+        display: block;
+        padding: 0.85rem 0;
+    }
+
     /* Le bouton hamburger doit être visible sur mobile */
     .menu-toggle {
-        display: block; 
+        display: block;
     }
 
     /* 2. S'assurer que le header maintient un espacement logique */
@@ -589,9 +1069,9 @@ footer {
         /* Garde le logo et l'icône de menu bien espacés */
         justify-content: space-between;
         /* Empêche les éléments de s'enrouler si la place est très limitée */
-        flex-wrap: nowrap; 
+        flex-wrap: nowrap;
     }
-    
+
     /* 3. Ajustements de contenu (OK) */
     .hero h1 {
         font-size: 2.5rem;
@@ -608,18 +1088,67 @@ footer {
     .stats {
         grid-template-columns: 1fr;
     }
-    
+
     .footer-content {
         grid-template-columns: 1fr;
         text-align: left;
     }
-	
+
+    .legal-links {
+        justify-content: flex-start;
+    }
+
 	.hero-logo-img {
     /* Réduire la taille maximale sur mobile pour qu'il ne prenne pas tout l'écran */
-        max-height: 250px; 
-        
+        max-height: 250px;
+
         /* Assure que l'image ne dépasse pas la largeur du conteneur parent */
-        width: 80%; 
+        width: 80%;
+    }
+
+    .habilicible-hero {
+        padding: 115px 0 65px;
+    }
+
+    .habilicible-hero-grid,
+    .benefits-grid,
+    .signup-grid,
+    .product-strip-content,
+    .problem-grid,
+    .how-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .habilicible-hero-grid,
+    .benefits-grid,
+    .signup-grid {
+        gap: 2.5rem;
+    }
+
+    .habilicible-hero h1 {
+        font-size: clamp(2.25rem, 11vw, 3.2rem);
+    }
+
+    .hero-actions {
+        flex-direction: column;
+    }
+
+    .hero-actions a {
+        width: 100%;
+        text-align: center;
+    }
+
+    .product-strip-content .secondary-button {
+        width: 100%;
+        text-align: center;
+    }
+
+    .qualification-card,
+    .responsibility-card,
+    .problem-card,
+    .how-step {
+        padding-left: 1.35rem;
+        padding-right: 1.35rem;
     }
 }
 

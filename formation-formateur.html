@@ -3,7 +3,7 @@ layout: default
 title: Formatioon de formateurs
 ---
 
-        <section class="hero" style="padding-top: 100px; padding-bottom: 50px;">
+        <section class="hero compact-hero">
             <div class="hero-content container">
                 <h1>Devenez Formateur Professionnel</h1>
                 <p>Acquérez les compétences pédagogiques pour transmettre votre expertise</p>
@@ -31,14 +31,14 @@ title: Formatioon de formateurs
 
                     <h3>Programme Détaillé</h3>
                     <ul>
-                        <li>**Module 1 : Les Fondamentaux de la Pédagogie des Adultes**
+                        <li><strong>Module 1 : Les Fondamentaux de la Pédagogie des Adultes</strong>
                             <ul>
                                 <li>Spécificités de l'apprentissage chez l'adulte (andragogie).</li>
                                 <li>Les différents styles d'apprentissage.</li>
                                 <li>Le rôle et la posture du formateur.</li>
                             </ul>
                         </li>
-                        <li>**Module 2 : Concevoir une Action de Formation**
+                        <li><strong>Module 2 : Concevoir une Action de Formation</strong>
                             <ul>
                                 <li>Analyse des besoins et définition des objectifs pédagogiques.</li>
                                 <li>Structuration des contenus et élaboration du scénario pédagogique.</li>
@@ -46,7 +46,7 @@ title: Formatioon de formateurs
                                 <li>Création des supports de formation (slides, exercices, documents...).</li>
                             </ul>
                         </li>
-                        <li>**Module 3 : Animer une Formation Efficace**
+                        <li><strong>Module 3 : Animer une Formation Efficace</strong>
                             <ul>
                                 <li>Techniques d'animation : introductive, participative, conclusive.</li>
                                 <li>Gestion du temps et de l'espace de formation.</li>
@@ -54,21 +54,21 @@ title: Formatioon de formateurs
                                 <li>Susciter l'interaction et l'engagement des participants.</li>
                             </ul>
                         </li>
-                        <li>**Module 4 : Gérer le Groupe et les Situations Spécifiques**
+                        <li><strong>Module 4 : Gérer le Groupe et les Situations Spécifiques</strong>
                             <ul>
                                 <li>Dynamique de groupe et gestion des personnalités différentes.</li>
                                 <li>Faire face aux questions difficiles, aux objections et aux résistances.</li>
                                 <li>Gérer les imprévus et adapter sa formation en temps réel.</li>
                             </ul>
                         </li>
-                        <li>**Module 5 : Évaluer la Formation et l'Apprentissage**
+                        <li><strong>Module 5 : Évaluer la Formation et l'Apprentissage</strong>
                             <ul>
                                 <li>Les différents types d'évaluation (à chaud, à froid, formative, sommative).</li>
                                 <li>Concevoir des outils d'évaluation pertinents.</li>
                                 <li>Mesurer l'atteinte des objectifs et l'impact de la formation.</li>
                             </ul>
                         </li>
-                        <li>**Module 6 : Préparation et Passage à l'Action (Mise en Situation)**
+                        <li><strong>Module 6 : Préparation et Passage à l'Action (Mise en Situation)</strong>
                             <ul>
                                 <li>Préparation d'une séquence de formation par chaque participant.</li>
                                 <li>Mises en situation pratiques filmées et débriefing constructif.</li>
@@ -88,59 +88,7 @@ title: Formatioon de formateurs
                 </div>
 
                 <div class="contact-link-footer fade-in">
-                    <a href="contact.html" class="cta-button">Intéressé(e) par cette formation ? Contactez-nous !</a>
+                    <a href="/contact.html" class="cta-button">Intéressé(e) par cette formation ? Contactez-nous !</a>
                 </div>
             </div>
         </section>
-    </main>
-
-    
-
-    <script src="script.js"></script> <script>
-        // Smooth scrolling for navigation links (si non géré par un script.js externe)
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Fade in animation on scroll (si non géré par un script.js externe)
-        function animateOnScroll() {
-            const elements = document.querySelectorAll('.fade-in');
-            elements.forEach(element => {
-                const elementTop = element.getBoundingClientRect().top;
-                const elementVisible = 150;
-                
-                if (elementTop < window.innerHeight - elementVisible) {
-                    element.classList.add('visible');
-                }
-            });
-        }
-
-        window.addEventListener('scroll', animateOnScroll);
-        animateOnScroll(); // Initial check
-
-       // Header background on scroll
-window.addEventListener('scroll', () => {
-    const header = document.querySelector('header');
-    
-    // Si le défilement est supérieur à 100 pixels
-    if (window.scrollY > 100) {
-        // AJOUTE la classe CSS 'scrolled-header'
-        header.classList.add('scrolled-header');
-    } else {
-        // RETIRE la classe CSS 'scrolled-header'
-        header.classList.remove('scrolled-header');
-    }
-});
-    </script>
-</body>
-
-</html>
