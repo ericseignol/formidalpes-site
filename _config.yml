@@ -8,6 +8,7 @@ baseurl: "" # Laissez vide si le site est à la racine de votre domaine (https:/
 url: "https://formid-alpes.fr/" # Remplacez par votre URL principale
 lang: fr_FR
 logo: /logo-transparent-png.png
+assets_version: "20260821-1"
 
 social:
   name: Formid'Alpes
