@@ -512,7 +512,8 @@ nav {
 }
 
 .form-group input,
-.form-group textarea {
+.form-group textarea,
+.form-group select {
     width: 100%;
     padding: 12px;
     border: 2px solid #eee;
@@ -522,7 +523,8 @@ nav {
 }
 
 .form-group input:focus,
-.form-group textarea:focus {
+.form-group textarea:focus,
+.form-group select:focus {
     outline: none;
     border-color: #354859;
 }
@@ -998,6 +1000,295 @@ footer {
     max-width: none;
 }
 
+.pilot-microcopy {
+    display: flex;
+    gap: 0.65rem;
+    align-items: flex-start;
+    max-width: 690px;
+    margin-top: 1.25rem;
+    color: #dcebf2;
+    font-size: 0.92rem;
+    line-height: 1.55;
+}
+
+.pilot-microcopy i {
+    margin-top: 0.25rem;
+    color: var(--brand-orange);
+}
+
+.demo-section,
+.responsibility-section,
+.faq-section {
+    background: #fff;
+}
+
+.demo-grid,
+.pilot-preview-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 4rem;
+    align-items: center;
+}
+
+.demo-copy h2 {
+    margin: 0.6rem 0 1.35rem;
+    color: var(--brand-navy);
+    font-size: clamp(2rem, 4vw, 3rem);
+    line-height: 1.15;
+}
+
+.demo-copy > p:last-of-type,
+.benefits-copy > p:last-child {
+    color: var(--brand-muted);
+    font-size: 1.08rem;
+    line-height: 1.75;
+}
+
+.demo-list {
+    display: grid;
+    gap: 1rem;
+    margin-top: 1.5rem;
+    padding: 0;
+    list-style: none;
+}
+
+.demo-list li {
+    display: grid;
+    grid-template-columns: 24px 1fr;
+    gap: 0.75rem;
+    color: var(--brand-muted);
+}
+
+.demo-list i {
+    margin-top: 0.2rem;
+    color: var(--brand-orange);
+}
+
+.product-video-card {
+    margin: 0;
+    padding: 1rem;
+    border: 1px solid #dce7ed;
+    border-radius: 28px;
+    background: var(--brand-navy);
+    box-shadow: 0 28px 70px rgba(31, 52, 65, 0.2);
+}
+
+.product-video-card video {
+    display: block;
+    width: 100%;
+    max-height: 650px;
+    border-radius: 18px;
+    background: #0d2b3a;
+}
+
+.product-video-card figcaption {
+    padding: 0.9rem 0.4rem 0.15rem;
+    color: #cddde5;
+    font-size: 0.86rem;
+    text-align: center;
+}
+
+.how-grid--four {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+}
+
+.pilot-preview-section {
+    background: linear-gradient(145deg, #eef5f8 0%, #f9fbfc 100%);
+}
+
+.pilot-preview-card {
+    overflow: hidden;
+    border: 1px solid #d9e5eb;
+    border-radius: 24px;
+    background: white;
+    box-shadow: 0 24px 60px rgba(31, 52, 65, 0.14);
+}
+
+.pilot-preview-header {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1rem 1.25rem;
+    background: #e9f2f7;
+    color: var(--brand-navy);
+    font-size: 0.9rem;
+}
+
+.preview-dot {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    margin-right: 0.35rem;
+    border-radius: 50%;
+    background: #7ca8bd;
+}
+
+.preview-dot--orange {
+    background: var(--brand-orange);
+}
+
+.pilot-preview-body {
+    display: grid;
+    gap: 1rem;
+    padding: 1.5rem;
+}
+
+.preview-metric,
+.preview-prospect,
+.preview-checks {
+    padding: 1.2rem;
+    border: 1px solid #e1e9ed;
+    border-radius: 16px;
+    background: #f9fbfc;
+}
+
+.preview-metric {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: var(--brand-muted);
+}
+
+.preview-metric strong {
+    color: var(--brand-orange);
+    font-size: 2rem;
+}
+
+.preview-prospect {
+    display: grid;
+    gap: 0.4rem;
+}
+
+.preview-prospect span,
+.preview-prospect small {
+    color: var(--brand-muted);
+}
+
+.preview-prospect strong {
+    color: var(--brand-navy);
+}
+
+.preview-checks {
+    display: grid;
+    gap: 0.7rem;
+    color: #315d43;
+}
+
+.preview-checks i {
+    display: inline-grid;
+    width: 22px;
+    height: 22px;
+    margin-right: 0.5rem;
+    place-items: center;
+    border-radius: 50%;
+    background: #d9eee0;
+    font-size: 0.72rem;
+}
+
+.offer-section {
+    background: var(--brand-navy);
+    color: white;
+}
+
+.offer-section .section-title {
+    color: white;
+}
+
+.offer-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.4rem;
+}
+
+.offer-card {
+    padding: 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.16);
+    border-radius: 22px;
+    background: rgba(255, 255, 255, 0.08);
+}
+
+.offer-card--featured {
+    border-color: var(--brand-orange);
+    background: rgba(249, 115, 22, 0.14);
+}
+
+.offer-label {
+    color: var(--brand-light-blue);
+    font-size: 0.82rem;
+    font-weight: 800;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+}
+
+.offer-price {
+    margin: 0.8rem 0;
+    color: #e4edf2;
+}
+
+.offer-price strong {
+    color: white;
+    font-size: 2.2rem;
+}
+
+.offer-card--featured .offer-price strong {
+    color: var(--brand-orange);
+}
+
+.offer-card > p:last-child,
+.offer-note {
+    color: #d2e0e7;
+}
+
+.offer-note {
+    max-width: 820px;
+    margin: 1.5rem auto 0;
+    text-align: center;
+}
+
+.faq-container {
+    max-width: 900px;
+}
+
+.faq-item {
+    margin-bottom: 1rem;
+    border: 1px solid #dce7ed;
+    border-radius: 16px;
+    background: #f9fbfc;
+}
+
+.faq-item summary {
+    padding: 1.2rem 1.35rem;
+    color: var(--brand-navy);
+    font-weight: 750;
+    cursor: pointer;
+}
+
+.faq-item p {
+    padding: 0 1.35rem 1.25rem;
+    color: var(--brand-muted);
+    line-height: 1.7;
+}
+
+.signup-reassurance {
+    display: flex;
+    gap: 0.65rem;
+    align-items: center;
+    margin-top: 1.3rem;
+    color: var(--brand-navy) !important;
+    font-weight: 700;
+}
+
+.signup-reassurance i {
+    color: var(--brand-orange);
+}
+
+.optional-label {
+    color: var(--brand-muted);
+    font-size: 0.82rem;
+    font-weight: 500;
+}
+
 .checkbox-group {
     display: grid;
     grid-template-columns: 20px 1fr;
@@ -1115,9 +1406,13 @@ footer {
     .habilicible-hero-grid,
     .benefits-grid,
     .signup-grid,
+    .demo-grid,
+    .pilot-preview-grid,
     .product-strip-content,
     .problem-grid,
-    .how-grid {
+    .how-grid,
+    .how-grid--four,
+    .offer-grid {
         grid-template-columns: 1fr;
     }
 
