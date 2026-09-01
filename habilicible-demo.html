@@ -1,0 +1,134 @@
+---
+layout: null
+permalink: /habilicible/demo/
+sitemap: false
+---
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>HabiliCible — Démonstration</title>
+  <style>
+    :root{--brand:#256b78;--ink:#18313a;--muted:#60747c;--line:#dce6e9;--soft:#f2f7f8;--accent:#f97316;--ok:#16794b}
+    *{box-sizing:border-box}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;background:#eef4f5;color:var(--ink);line-height:1.5}
+    a{color:inherit}
+    .demo-ribbon{background:#18313a;color:white;text-align:center;padding:10px 16px;font-size:.9rem}
+    .demo-ribbon strong{color:#ffd2b4}
+    .shell{max-width:980px;margin:0 auto;padding:24px}
+    .topbar{display:flex;justify-content:space-between;gap:16px;align-items:center;margin-bottom:18px}
+    .brand{display:flex;align-items:center;gap:10px;font-weight:800}
+    .mark{width:42px;height:42px;border-radius:12px;background:var(--brand);color:white;display:grid;place-items:center}
+    .label{font-size:.85rem;color:var(--muted)}
+    .card{background:white;border:1px solid var(--line);border-radius:24px;padding:clamp(22px,4vw,42px);box-shadow:0 20px 60px rgba(24,49,58,.10)}
+    .eyebrow{text-transform:uppercase;letter-spacing:.1em;font-weight:800;font-size:.75rem;color:var(--brand);margin:0 0 8px}
+    h1{font-size:clamp(2rem,5vw,3.4rem);line-height:1.06;margin:0 0 18px}
+    .lead{font-size:1.12rem;color:var(--muted);max-width:760px}
+    .notice{background:#fff4ea;border:1px solid #ffd1ae;color:#7a3b0e;padding:14px 16px;border-radius:14px;margin:18px 0}
+    .grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+    .field{display:grid;gap:7px}
+    .field span{font-weight:700}
+    .field input,.field textarea{width:100%;border:1px solid #cbdadd;border-radius:12px;padding:12px 14px;font:inherit;color:inherit;background:white}
+    .field small{color:var(--muted)}
+    .actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+    .button{border:0;border-radius:999px;padding:13px 19px;font:inherit;font-weight:800;cursor:pointer;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:8px}
+    .primary{background:var(--accent);color:white}
+    .secondary{background:white;border:1px solid #b9cdd1;color:var(--ink)}
+    .wide{width:100%}
+    .button:hover{transform:translateY(-1px)}
+    .choices{display:grid;gap:12px;margin-top:22px}
+    .choice{width:100%;text-align:left;background:white;border:1px solid #cbdadd;border-radius:16px;padding:16px 18px;font:inherit;font-weight:700;color:inherit;cursor:pointer;display:flex;justify-content:space-between;gap:16px}
+    .choice:hover{border-color:var(--brand);background:#f7fbfb}
+    .progress{height:8px;border-radius:99px;background:#e6eef0;overflow:hidden;margin:20px 0}
+    .progress span{display:block;height:100%;background:var(--brand)}
+    .result{background:var(--soft);border-radius:18px;padding:20px;margin:20px 0}
+    .result-label{font-size:.78rem;text-transform:uppercase;letter-spacing:.08em;font-weight:800;color:var(--muted);margin-bottom:8px}
+    .badges{display:flex;gap:8px;flex-wrap:wrap}
+    .badge{background:var(--brand);color:white;border-radius:999px;padding:7px 11px;font-weight:800}
+    .answers{margin:18px 0}
+    .answers li{margin:10px 0}
+    .answers span{display:block;color:var(--muted)}
+    .admin-shell{background:#f5f8f9;border:1px solid var(--line);border-radius:18px;padding:16px;margin-top:18px}
+    .admin-head{display:flex;justify-content:space-between;gap:12px;align-items:center;margin-bottom:14px}
+    .status{font-size:.8rem;font-weight:800;color:var(--ok);background:#e8f7ef;padding:6px 10px;border-radius:999px}
+    .table-wrap{overflow:auto}
+    .demo-table{width:100%;border-collapse:collapse;background:white;border-radius:14px;overflow:hidden}
+    .demo-table th,.demo-table td{text-align:left;padding:12px;border-bottom:1px solid #edf1f2;vertical-align:top}
+    .demo-table th{font-size:.76rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+    .footer{color:var(--muted);font-size:.84rem;text-align:center;margin:18px 0 4px}
+    @media(max-width:680px){.shell{padding:14px}.topbar{align-items:flex-start}.label{display:none}.grid{grid-template-columns:1fr}.actions .button{width:100%}.demo-table{min-width:720px}}
+  </style>
+</head>
+<body>
+  <div class="demo-ribbon"><strong>Démonstration fictive.</strong> Aucune donnée n’est enregistrée, envoyée ou transmise à un organisme.</div>
+  <div class="shell">
+    <div class="topbar">
+      <div class="brand"><span class="mark">HC</span><span>HabiliCible · Centre Démo</span></div>
+      <span class="label">Assistant de qualification</span>
+    </div>
+    <main class="card" id="app" aria-live="polite"></main>
+    <p class="footer">HabiliCible prépare la qualification du besoin. La validation finale reste du ressort de l’organisme de formation et de l’employeur.</p>
+  </div>
+<script>
+const FIN='Fin';
+const questions=[
+{id:0,q:"Le salarié est-il amené à intervenir sur des installations électriques ou seulement à proximité, sans intervenir directement ?",o:["Sur des installations électriques","À proximité"],a:["Le salarié intervient sur des installations électriques en basse tension.","Le salarié n’intervient qu’à proximité des installations électriques."],r:["","B0"],n:[1,6]},
+{id:1,q:"Le salarié est-il amené à remplacer, dépanner, connecter ou installer des éléments électriques en basse tension lors de travaux de construction ou de rénovation, au sein d’une équipe ?",o:["Oui","Non"],a:["Le salarié effectue des opérations sur des équipements basse tension.","Le salarié ne fait aucune intervention sur des équipements basse tension."],r:["",""],n:[2,6]},
+{id:2,q:"Le salarié agit-il en tant qu’exécutant ou agent de maîtrise / cadre ?",o:["Exécutant","Agent de maîtrise / cadre"],a:["Le salarié agit en tant qu’exécutant.","Le salarié agit en tant qu’agent de maîtrise ou cadre."],r:["",""],n:[3,4]},
+{id:3,q:"Le salarié travaille-t-il dans des armoires électriques à proximité d’éléments électriques en fonctionnement ?",o:["Oui","Non"],a:["Le salarié travaille dans des armoires électriques à proximité d’éléments en fonctionnement.","Le salarié ne travaille pas à proximité d’éléments électriques en fonctionnement."],r:["B1V","B1"],n:[5,5]},
+{id:4,q:"Le salarié travaille-t-il dans des armoires électriques à proximité d’éléments électriques en fonctionnement ?",o:["Oui","Non"],a:["Le salarié travaille dans des armoires électriques à proximité d’éléments en fonctionnement.","Le salarié ne travaille pas à proximité d’éléments électriques en fonctionnement."],r:["B2V","B2"],n:[5,5]},
+{id:5,q:"Quel type d’intervention le salarié peut-il effectuer ?",o:["Intervention générale sur tout type de circuit BT, seul ou avec un exécutant sous ses ordres.","Intervention élémentaire sur un circuit de tension maximale 230 V : prise, interrupteur, luminaire, ampoule ou radiateur."],a:["Le salarié effectue des interventions générales sur tous types de circuits BT.","Le salarié effectue des interventions élémentaires sur des circuits de faible tension."],r:["BR","BS"],n:[6,6]},
+{id:6,q:"Le salarié effectue-t-il des manœuvres, comme couper ou rétablir le courant dans des armoires électriques basse tension ?",o:["Oui","Non"],a:["Le salarié effectue des manœuvres sur des armoires électriques basse tension.","Le salarié n’effectue aucune manœuvre sur des armoires électriques basse tension."],r:["BE manœuvre",""],n:[7,7]},
+{id:7,q:"Le salarié est-il responsable de la mise hors service des installations pour assurer la sécurité d’autres travailleurs intervenant sur l’installation (consignation) ?",o:["Oui","Non"],a:["Le salarié est responsable de la mise hors service des installations pour la consignation.","Le salarié n’est pas responsable de la consignation."],r:["BC",""],n:[8,8]},
+{id:8,q:"Le salarié doit-il pénétrer dans des locaux haute tension (> 1 000 V), comme des postes de transformation, ou travailler à proximité de réseaux aériens de transport ou distribution d’électricité ?",o:["Oui","Non"],a:["Le salarié doit pénétrer dans des locaux haute tension ou travailler à proximité de réseaux aériens.","Le salarié ne pénètre pas dans des locaux haute tension et ne travaille pas à proximité de réseaux aériens."],r:["",""],n:[9,14]},
+{id:9,q:"Le salarié agit-il en tant que non-électricien, exécutant électricien ou agent de maîtrise / cadre électricien en haute tension ?",o:["Non-électricien","Exécutant","Agent de maîtrise / cadre"],a:["Le salarié est un non-électricien de haute tension.","Le salarié est un exécutant électricien de haute tension.","Le salarié est un agent de maîtrise ou cadre électricien de haute tension."],r:["H0","",""],n:[10,11,12]},
+{id:10,q:"Le salarié travaille-t-il dans des installations haute tension à proximité d’éléments électriques en fonctionnement ?",o:["Oui","Non"],a:["Le salarié travaille à proximité d’éléments électriques en fonctionnement dans des installations haute tension.","Le salarié ne travaille pas à proximité d’éléments électriques en fonctionnement dans des installations haute tension."],r:["H0V","H0"],n:[13,13]},
+{id:11,q:"Le salarié travaille-t-il dans des installations haute tension à proximité d’éléments électriques en fonctionnement ?",o:["Oui","Non"],a:["Le salarié travaille à proximité d’éléments électriques en fonctionnement dans des installations haute tension.","Le salarié ne travaille pas à proximité d’éléments électriques en fonctionnement dans des installations haute tension."],r:["H1V","H1"],n:[13,13]},
+{id:12,q:"Le salarié travaille-t-il dans des installations haute tension à proximité d’éléments électriques en fonctionnement ?",o:["Oui","Non"],a:["Le salarié travaille à proximité d’éléments électriques en fonctionnement dans des installations haute tension.","Le salarié ne travaille pas à proximité d’éléments électriques en fonctionnement dans des installations haute tension."],r:["H2V","H2"],n:[13,13]},
+{id:13,q:"Le salarié effectue-t-il des manœuvres, comme couper ou rétablir le courant dans des locaux haute tension ?",o:["Oui","Non"],a:["Le salarié effectue des manœuvres sur des installations haute tension.","Le salarié n’effectue aucune manœuvre sur des installations haute tension."],r:["HE manœuvre",""],n:[14,14]},
+{id:14,q:"Le salarié est-il responsable de la mise hors service des installations pour assurer la sécurité d’autres travailleurs intervenant sur des installations haute tension (consignation) ?",o:["Oui","Non"],a:["Le salarié est responsable de la mise hors service des installations haute tension pour la consignation.","Le salarié n’est pas responsable de la consignation des installations haute tension."],r:["HC",""],n:[15,15]},
+{id:15,q:"Le salarié intervient-il sur une installation photovoltaïque en courant continu et alternatif ainsi que sur son raccordement au réseau ?",o:["Oui","Non"],a:["Le salarié intervient sur les interfaces entre courant continu et courant alternatif ainsi que sur le raccordement au réseau d’une installation photovoltaïque.","Le salarié n’intervient pas sur les interfaces courant continu / courant alternatif ni sur le raccordement au réseau d’une installation photovoltaïque."],r:["BR-PV",""],n:[16,16]},
+{id:16,q:"Le salarié manipule-t-il ou pose-t-il des panneaux solaires photovoltaïques ?",o:["Oui","Non"],a:["Le salarié manipule et pose des panneaux photovoltaïques.","Le salarié ne manipule pas et ne pose pas de panneaux solaires photovoltaïques."],r:["BP",""],n:[17,17]},
+{id:17,q:"Le salarié travaille-t-il dans des tranchées de réseaux enterrés ?",o:["Oui","Non"],a:["Le salarié travaille dans des tranchées de réseaux enterrés.","Le salarié ne travaille pas dans des tranchées de réseaux enterrés."],r:["BF/HF",""],n:[FIN,FIN]}
+];
+const state={stage:'intro',current:0,answers:[],recs:[],contact:{name:'Camille Martin',company:'Entreprise Démo',email:'camille.martin@exemple.fr',phone:'06 00 00 00 00'},employees:'Alex Dupont'};
+const app=document.getElementById('app');
+function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[c]));}
+function base(eyebrow,title,body){app.innerHTML=`<p class="eyebrow">${eyebrow}</p><h1>${title}</h1>${body}`;window.scrollTo({top:0,behavior:'smooth'});}
+function bind(id,fn){document.getElementById(id)?.addEventListener('click',fn);}
+function render(){
+ if(state.stage==='intro'){
+   base('Démonstration HabiliCible','Du besoin terrain à une demande exploitable',`<p class="lead">Parcourez une version fictive du questionnaire, puis basculez automatiquement sur la vue de l’organisme qui reçoit la demande.</p><div class="notice">Les coordonnées sont préremplies avec des données fictives et rien ne quitte votre navigateur.</div><div class="actions"><button class="button primary" id="start">Commencer la démonstration →</button><a class="button secondary" href="https://formid-alpes.fr/habilicible/#acces-pilote">Demander un accès pilote</a></div>`);
+   bind('start',()=>{state.stage='contact';render()}); return;
+ }
+ if(state.stage==='contact'){
+   base('Étape 1','Parlons de votre besoin',`<p class="lead">Dans le service réel, ces coordonnées permettent à l’organisme de reprendre contact avec le prospect.</p><div class="grid"><label class="field"><span>Nom et prénom</span><input id="name" value="${esc(state.contact.name)}"></label><label class="field"><span>Entreprise</span><input id="company" value="${esc(state.contact.company)}"></label><label class="field"><span>Adresse e-mail</span><input id="email" value="${esc(state.contact.email)}"></label><label class="field"><span>Téléphone</span><input id="phone" value="${esc(state.contact.phone)}"></label></div><div class="actions"><button class="button primary wide" id="contact-next">Continuer →</button></div>`);
+   bind('contact-next',()=>{['name','company','email','phone'].forEach(k=>state.contact[k]=document.getElementById(k).value);state.stage='employees';render()}); return;
+ }
+ if(state.stage==='employees'){
+   base('Étape 2','Qui est concerné ?',`<p class="lead">Les salariés regroupés ici doivent avoir les mêmes missions.</p><label class="field"><span>Nom et prénom du ou des salariés</span><textarea id="employees" rows="3">${esc(state.employees)}</textarea><small>Séparez plusieurs personnes par une virgule.</small></label><div class="actions"><button class="button secondary" id="back-contact">Retour</button><button class="button primary" id="employees-next">Commencer les questions →</button></div>`);
+   bind('back-contact',()=>{state.stage='contact';render()});
+   bind('employees-next',()=>{state.employees=document.getElementById('employees').value||'Alex Dupont';state.stage='questions';render()}); return;
+ }
+ if(state.stage==='questions'){
+   const q=questions[state.current],pct=Math.min(18+state.answers.length*7,92);
+   base(`Question ${state.answers.length+1}`,esc(q.q),`<div class="progress"><span style="width:${pct}%"></span></div><div class="choices">${q.o.map((o,i)=>`<button class="choice" data-answer="${i}"><span>${esc(o)}</span><span>→</span></button>`).join('')}</div><p class="footer">Choisissez la réponse correspondant aux missions réelles.</p>`);
+   document.querySelectorAll('[data-answer]').forEach(btn=>btn.addEventListener('click',()=>answer(Number(btn.dataset.answer)))); return;
+ }
+ if(state.stage==='summary'){
+   base('Synthèse','Vérifiez l’estimation',`<div class="result"><div class="result-label">Salarié(s) concerné(s)</div><strong>${esc(state.employees)}</strong><div class="result-label" style="margin-top:16px">Indices identifiés</div><div class="badges">${state.recs.length?state.recs.map(r=>`<span class="badge">${esc(r)}</span>`).join(''):'À confirmer avec un conseiller'}</div></div><details class="answers"><summary>Relire les ${state.answers.length} réponses</summary><ol>${state.answers.map(x=>`<li><strong>${esc(x.option)}</strong><span>${esc(x.affirmation)}</span></li>`).join('')}</ol></details><div class="actions"><button class="button secondary" id="correct">Corriger les réponses</button><button class="button primary" id="send">Simuler la transmission →</button></div>`);
+   bind('correct',()=>{state.current=0;state.answers=[];state.recs=[];state.stage='questions';render()});
+   bind('send',()=>{state.stage='received';render()}); return;
+ }
+ if(state.stage==='received'){
+   base('Vue organisme · démonstration','Voici la demande reçue',`<p class="lead">Dans l’espace réel, chaque organisme ne voit que ses propres prospects. Ici, la demande ci-dessous est uniquement une simulation locale.</p><div class="admin-shell"><div class="admin-head"><div><strong>Centre Démo</strong><div class="label">Tableau de bord prospects</div></div><span class="status">Questionnaire actif</span></div><div class="table-wrap"><table class="demo-table"><thead><tr><th>Date</th><th>Contact</th><th>Entreprise</th><th>Coordonnées</th><th>Indices</th></tr></thead><tbody><tr><td>${new Date().toLocaleDateString('fr-FR')}</td><td>${esc(state.contact.name)}</td><td>${esc(state.contact.company)}</td><td>${esc(state.contact.email)}<br>${esc(state.contact.phone)}</td><td>${esc(state.recs.join(', ')||'À confirmer')}</td></tr></tbody></table></div></div><div class="notice">Fin de la démonstration : aucune donnée n’a été enregistrée dans Supabase et aucun e-mail n’a été envoyé.</div><div class="actions"><button class="button secondary" id="restart">Recommencer</button><a class="button primary" href="https://formid-alpes.fr/habilicible/#acces-pilote">Demander un accès pilote →</a></div>`);
+   bind('restart',()=>{state.stage='intro';state.current=0;state.answers=[];state.recs=[];render()}); return;
+ }
+}
+function answer(i){const q=questions[state.current];state.answers.push({id:q.id,option:q.o[i],affirmation:q.a[i]});if(q.r[i]&&!state.recs.includes(q.r[i]))state.recs.push(q.r[i]);const next=q.n[i];if(next===FIN){state.stage='summary';render()}else{state.current=next;render()}}
+render();
+</script>
+</body>
+</html>
