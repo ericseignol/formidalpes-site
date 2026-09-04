@@ -188,6 +188,80 @@ window.addEventListener('load', chargerTemoignages);
         }
 
         window.addEventListener('load', setupMobileMenu);
+
+        // Attribution des demandes pilotes HabiliCible.
+        // Les paramètres de campagne sont conservés uniquement pendant l'onglet/session en cours,
+        // puis ajoutés au formulaire Formspree sous forme de champs cachés.
+        function setupHabiliCibleCampaignAttribution() {
+            const storageKey = 'habilicible_campaign_attribution';
+            const trackedParams = [
+                'utm_source',
+                'utm_medium',
+                'utm_campaign',
+                'utm_content',
+                'utm_term',
+                'utm_id'
+            ];
+            const urlParams = new URLSearchParams(window.location.search);
+            const currentCampaign = {};
+
+            trackedParams.forEach(param => {
+                const value = urlParams.get(param);
+                if (value) currentCampaign[param] = value.slice(0, 200);
+            });
+
+            let attribution = {};
+            try {
+                attribution = JSON.parse(sessionStorage.getItem(storageKey) || '{}');
+            } catch {
+                attribution = {};
+            }
+
+            if (Object.keys(currentCampaign).length) {
+                attribution = {
+                    ...attribution,
+                    ...currentCampaign,
+                    landing_page: `${window.location.pathname}${window.location.search}`.slice(0, 500),
+                    referrer: (document.referrer || '').slice(0, 500)
+                };
+
+                try {
+                    sessionStorage.setItem(storageKey, JSON.stringify(attribution));
+                } catch {
+                    // Le formulaire reste fonctionnel si le stockage de session est indisponible.
+                }
+            }
+
+            const pilotForm = document.querySelector(
+                'form[action="https://formspree.io/f/meorkvbw"] input[name="Origine"][value="Page HabiliCible — accès pilote"]'
+            )?.closest('form');
+
+            if (!pilotForm) return;
+
+            const fieldLabels = {
+                utm_source: 'UTM source',
+                utm_medium: 'UTM medium',
+                utm_campaign: 'UTM campagne',
+                utm_content: 'UTM contenu',
+                utm_term: 'UTM terme',
+                utm_id: 'UTM id',
+                landing_page: 'Page d’entrée campagne',
+                referrer: 'Référent campagne'
+            };
+
+            Object.entries(fieldLabels).forEach(([key, label]) => {
+                const value = attribution[key];
+                if (!value) return;
+
+                const input = document.createElement('input');
+                input.type = 'hidden';
+                input.name = label;
+                input.value = value;
+                pilotForm.appendChild(input);
+            });
+        }
+
+        setupHabiliCibleCampaignAttribution();
     </script>
     </body>
 </html>
