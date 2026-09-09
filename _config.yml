@@ -10,6 +10,10 @@ lang: fr_FR
 logo: /logo-transparent-png.png
 assets_version: "20260901-1"
 
+# Mesure d'audience GoatCounter.
+# Le code ci-dessous correspond au compte https://formidalpes.goatcounter.com/.
+goatcounter_code: "formidalpes"
+
 social:
   name: Formid'Alpes
   links:

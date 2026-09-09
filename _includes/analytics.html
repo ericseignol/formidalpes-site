@@ -1,0 +1,94 @@
+{% assign goatcounter_code = site.goatcounter_code | default: '' %}
+{% if goatcounter_code != '' %}
+<script>
+    // Mesure d'audience respectueuse de la vie privée avec GoatCounter.
+    // Les paramètres UTM restent visibles dans l'attribution sans être conservés dans l'URL de page mesurée.
+    window.goatcounter = {
+        path: function () {
+            return window.location.pathname || '/';
+        },
+        referrer: function () {
+            const params = new URLSearchParams(window.location.search);
+            const source = params.get('utm_source');
+            const campaign = params.get('utm_campaign');
+            const content = params.get('utm_content');
+
+            if (source || campaign || content) {
+                return ['utm', source, campaign, content].filter(Boolean).join(':');
+            }
+
+            return document.referrer || '';
+        }
+    };
+</script>
+<script
+    data-goatcounter="https://{{ goatcounter_code }}.goatcounter.com/count"
+    async
+    src="https://gc.zgo.at/count.v5.js"
+    crossorigin="anonymous"
+    integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ">
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        function trackEvent(path, title) {
+            if (!window.goatcounter || typeof window.goatcounter.count !== 'function') return;
+
+            window.goatcounter.count({
+                path: path,
+                title: title,
+                event: true
+            });
+        }
+
+        if (window.location.pathname === '/') {
+            document.querySelectorAll('a[href="/habilicible/"]').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    trackEvent('clic-habilicible-accueil', 'Accueil → HabiliCible');
+                });
+            });
+        }
+
+        document.querySelectorAll('a[href="/habilicible/demo/"], a[href="/habilicible-demo.html"]').forEach(function (link) {
+            link.addEventListener('click', function () {
+                trackEvent('clic-demo-habilicible', 'Ouverture de la démo HabiliCible');
+            });
+        });
+
+        document.querySelectorAll('a[href="#acces-pilote"]').forEach(function (link) {
+            link.addEventListener('click', function () {
+                trackEvent('clic-acces-pilote', 'Clic vers la demande d’accès pilote');
+            });
+        });
+
+        const pilotForm = document.querySelector(
+            'form[action="https://formspree.io/f/meorkvbw"] input[name="Origine"][value="Page HabiliCible — accès pilote"]'
+        )?.closest('form');
+
+        if (pilotForm) {
+            pilotForm.addEventListener('submit', function () {
+                trackEvent('envoi-formulaire-habilicible', 'Envoi du formulaire d’accès pilote HabiliCible');
+            });
+        }
+
+        const contactForm = document.querySelector(
+            'form[action="https://formspree.io/f/meorkvbw"] input[name="_subject"][value="Nouvelle demande depuis formid-alpes.fr"]'
+        )?.closest('form');
+
+        if (contactForm) {
+            contactForm.addEventListener('submit', function () {
+                trackEvent('envoi-formulaire-contact', 'Envoi du formulaire de contact');
+            });
+        }
+
+        const habilicibleVideo = document.querySelector(
+            'video source[src="/assets/habilicible/demo-travail-reel.mp4"]'
+        )?.closest('video');
+
+        if (habilicibleVideo) {
+            habilicibleVideo.addEventListener('play', function () {
+                trackEvent('lecture-video-habilicible', 'Lecture de la vidéo HabiliCible');
+            }, { once: true });
+        }
+    });
+</script>
+{% endif %}
