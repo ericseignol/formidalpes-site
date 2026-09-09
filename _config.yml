@@ -11,9 +11,8 @@ logo: /logo-transparent-png.png
 assets_version: "20260901-1"
 
 # Mesure d'audience GoatCounter.
-# Renseigner ici uniquement le code du compte (ex. formidalpes), sans URL.
-# Tant que cette valeur reste vide, aucun script d'analytics n'est chargé.
-goatcounter_code: ""
+# Le code ci-dessous correspond au compte https://formidalpes.goatcounter.com/.
+goatcounter_code: "formidalpes"
 
 social:
   name: Formid'Alpes
