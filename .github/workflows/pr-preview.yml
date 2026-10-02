@@ -1,0 +1,84 @@
+name: Deploy PR preview
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: pr-preview-${{ github.event.pull_request.number }}
+  cancel-in-progress: false
+
+jobs:
+  deploy-preview:
+    if: github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Ruby
+        if: github.event.action != 'closed'
+        uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: "3.3"
+          bundler-cache: true
+
+      - name: Build Jekyll site
+        if: github.event.action != 'closed'
+        run: bundle exec jekyll build
+
+      - name: Rewrite root-relative URLs for preview path
+        if: github.event.action != 'closed'
+        env:
+          PREVIEW_PATH: /pr-preview/pr-${{ github.event.pull_request.number }}
+        run: |
+          python3 - <<'PY'
+          import os
+          from pathlib import Path
+
+          prefix = os.environ["PREVIEW_PATH"].rstrip("/")
+          root = Path("_site")
+
+          html_replacements = {
+              'href="/': f'href="{prefix}/',
+              'src="/': f'src="{prefix}/',
+              'poster="/': f'poster="{prefix}/',
+              'action="/': f'action="{prefix}/',
+          }
+          css_replacements = {
+              "url('/": f"url('{prefix}/",
+              'url("/': f'url("{prefix}/',
+          }
+
+          for path in root.rglob("*.html"):
+              text = path.read_text(encoding="utf-8")
+              for old, new in html_replacements.items():
+                  text = text.replace(old, new)
+              path.write_text(text, encoding="utf-8")
+
+          for path in root.rglob("*.css"):
+              text = path.read_text(encoding="utf-8")
+              for old, new in css_replacements.items():
+                  text = text.replace(old, new)
+              path.write_text(text, encoding="utf-8")
+
+          (root / ".nojekyll").touch()
+          PY
+
+      - name: Deploy or remove preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./_site/
+          preview-branch: gh-pages
+          umbrella-dir: pr-preview
+          wait-for-pages-deployment: true
+          qr-code: false
