@@ -9,6 +9,11 @@
   const form = root.querySelector('#hc-assistant-form');
   const input = root.querySelector('#hc-assistant-input');
   const messages = root.querySelector('#hc-assistant-messages');
+  const humanHelpLink = root.querySelector('[data-human-help]');
+
+  const environment = window.location.pathname.includes('/pr-preview/') ? 'preview' : 'production';
+  const unansweredStorageKey = `habilicible_unanswered_questions_${environment}`;
+  let lastQuestion = '';
 
   const answers = {
     trial: "L'essai dure 30 jours, sans carte bancaire et sans engagement. Il sert à configurer votre espace, tester le questionnaire, vérifier la réception d'une demande et valider l'intégration avant utilisation réelle.",
@@ -42,16 +47,84 @@
     launcher.focus();
   }
 
+  function loadUnansweredQuestions() {
+    try {
+      const stored = JSON.parse(sessionStorage.getItem(unansweredStorageKey) || '[]');
+      return Array.isArray(stored) ? stored : [];
+    } catch {
+      return [];
+    }
+  }
+
+  function rememberUnanswered(question) {
+    const cleanQuestion = question.trim().slice(0, 300);
+    if (!cleanQuestion) return;
+
+    const questions = loadUnansweredQuestions();
+    if (!questions.some(item => item.question === cleanQuestion)) {
+      questions.push({
+        question: cleanQuestion,
+        at: new Date().toISOString()
+      });
+    }
+
+    try {
+      sessionStorage.setItem(unansweredStorageKey, JSON.stringify(questions.slice(-10)));
+    } catch {
+      // L'assistant reste fonctionnel si le stockage de session est indisponible.
+    }
+
+    // On mesure uniquement le nombre de questions non résolues, jamais leur texte.
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'assistant_unanswered_question', {
+        event_label: 'HabiliCible assistant'
+      });
+    }
+  }
+
   function answerFor(text) {
     const q = text.toLowerCase();
-    if (/(prix|tarif|coût|cout|79|690|490|abonnement)/.test(q)) return answers.price;
-    if (/(essai|30 jour|carte|engagement)/.test(q)) return answers.trial;
-    if (/(param|logo|couleur|adresse|config)/.test(q)) return answers.setup;
-    if (/(iframe|intégr|integr|site|lien public)/.test(q)) return answers.embed;
-    if (/(reçoit|recoit|demande|prospect|résultat|resultat)/.test(q)) return answers.request;
-    if (/(habilitation|br|bs|b0|bc|b2|indice|recommand)/.test(q)) return answers.responsibility;
-    if (/(donnée|donnee|rgpd|confidential|supabase)/.test(q)) return answers.privacy;
-    return "Je n'ai pas encore une réponse fiable à cette question dans ma base d'aide. Utilisez « Demander une aide humaine » ci-dessous : votre question nous aidera aussi à enrichir l'assistant.";
+    if (/(prix|tarif|coût|cout|79|690|490|abonnement)/.test(q)) return { text: answers.price, matched: true };
+    if (/(essai|30 jour|carte|engagement)/.test(q)) return { text: answers.trial, matched: true };
+    if (/(param|logo|couleur|adresse|config)/.test(q)) return { text: answers.setup, matched: true };
+    if (/(iframe|intégr|integr|site|lien public)/.test(q)) return { text: answers.embed, matched: true };
+    if (/(reçoit|recoit|demande|prospect|résultat|resultat)/.test(q)) return { text: answers.request, matched: true };
+    if (/(habilitation|br|bs|b0|bc|b2|indice|recommand)/.test(q)) return { text: answers.responsibility, matched: true };
+    if (/(donnée|donnee|rgpd|confidential|supabase)/.test(q)) return { text: answers.privacy, matched: true };
+
+    return {
+      text: "Je n'ai pas encore une réponse fiable à cette question dans ma base d'aide. Utilisez « Demander une aide humaine » ci-dessous : votre question sera reprise automatiquement dans le formulaire de contact.",
+      matched: false
+    };
+  }
+
+  function prepareHumanHelpLink() {
+    if (!humanHelpLink) return;
+
+    const target = new URL(humanHelpLink.href);
+    target.searchParams.set('objet', 'Support HabiliCible');
+    target.searchParams.set('origine', 'Assistant HabiliCible');
+
+    if (lastQuestion) {
+      target.searchParams.set('question', lastQuestion.slice(0, 300));
+    }
+
+    const unanswered = loadUnansweredQuestions()
+      .slice(-4)
+      .map(item => item.question)
+      .filter(Boolean);
+
+    if (unanswered.length) {
+      target.searchParams.set('questions_sans_reponse', unanswered.join(' || ').slice(0, 1200));
+    }
+
+    humanHelpLink.href = target.toString();
+
+    if (typeof window.gtag === 'function') {
+      window.gtag('event', 'clic_aide_humaine_habilicible', {
+        event_label: 'HabiliCible assistant'
+      });
+    }
   }
 
   launcher.addEventListener('click', () => panel.hidden ? openPanel() : closePanel());
@@ -61,8 +134,10 @@
   root.querySelectorAll('[data-question]').forEach(button => {
     button.addEventListener('click', () => {
       const key = button.dataset.question;
-      addMessage(button.textContent.trim(), 'user');
-      addMessage(answers[key] || answerFor(button.textContent));
+      const question = button.textContent.trim();
+      lastQuestion = question;
+      addMessage(question, 'user');
+      addMessage(answers[key] || answerFor(question).text);
     });
   });
 
@@ -70,8 +145,20 @@
     e.preventDefault();
     const question = input.value.trim();
     if (!question) return;
+
+    lastQuestion = question;
     addMessage(question, 'user');
     input.value = '';
-    addMessage(answerFor(question));
+
+    const result = answerFor(question);
+    addMessage(result.text);
+
+    if (!result.matched) {
+      rememberUnanswered(question);
+    }
   });
+
+  if (humanHelpLink) {
+    humanHelpLink.addEventListener('click', prepareHumanHelpLink);
+  }
 })();
