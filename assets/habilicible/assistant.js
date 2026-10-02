@@ -1,3 +1,4 @@
+/* HabiliCible support assistant V1 — local knowledge base, no external AI. */
 (() => {
   const root = document.getElementById('habilicible-assistant');
   if (!root) return;
