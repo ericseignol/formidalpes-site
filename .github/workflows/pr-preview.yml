@@ -30,7 +30,13 @@ jobs:
         uses: ruby/setup-ruby@v1
         with:
           ruby-version: "3.3"
-          bundler-cache: true
+          bundler-cache: false
+
+      - name: Install dependencies
+        if: github.event.action != 'closed'
+        run: |
+          bundle lock --add-platform x86_64-linux
+          bundle install
 
       - name: Build Jekyll site
         if: github.event.action != 'closed'
