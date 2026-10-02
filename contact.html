@@ -33,112 +33,132 @@
 
     
 
+
+<script>
+    // Les previews de PR servent uniquement aux tests internes et ne doivent pas
+    // polluer les statistiques de production (GA4 ou GoatCounter).
+    window.formidAlpesAnalyticsEnabled = !window.location.pathname.includes('/pr-preview/');
+</script>
+
+
 <!-- Google tag (gtag.js) — Google Analytics 4 -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-FRNZDBTJEK"></script>
 <script>
-    window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
-    gtag('js', new Date());
-    gtag('config', 'G-FRNZDBTJEK');
+    if (window.formidAlpesAnalyticsEnabled) {
+        window.dataLayer = window.dataLayer || [];
+        window.gtag = window.gtag || function(){ window.dataLayer.push(arguments); };
+
+        const ga4Script = document.createElement('script');
+        ga4Script.async = true;
+        ga4Script.src = 'https://www.googletagmanager.com/gtag/js?id=G-FRNZDBTJEK';
+        document.head.appendChild(ga4Script);
+
+        window.gtag('js', new Date());
+        window.gtag('config', 'G-FRNZDBTJEK');
+    }
 </script>
 
 
 
+<script>
+    if (window.formidAlpesAnalyticsEnabled) {
+        // Mesure d'audience respectueuse de la vie privée avec GoatCounter.
+        // Les paramètres UTM restent visibles dans l'attribution sans être conservés dans l'URL de page mesurée.
+        window.goatcounter = {
+            path: function () {
+                return window.location.pathname || '/';
+            },
+            referrer: function () {
+                const params = new URLSearchParams(window.location.search);
+                const source = params.get('utm_source');
+                const campaign = params.get('utm_campaign');
+                const content = params.get('utm_content');
+
+                if (source || campaign || content) {
+                    return ['utm', source, campaign, content].filter(Boolean).join(':');
+                }
+
+                return document.referrer || '';
+            }
+        };
+
+        const goatScript = document.createElement('script');
+        goatScript.dataset.goatcounter = 'https://formidalpes.goatcounter.com/count';
+        goatScript.async = true;
+        goatScript.src = 'https://gc.zgo.at/count.v5.js';
+        goatScript.crossOrigin = 'anonymous';
+        goatScript.integrity = 'sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ';
+        document.head.appendChild(goatScript);
+    }
+</script>
+
 
 <script>
-    // Mesure d'audience respectueuse de la vie privée avec GoatCounter.
-    // Les paramètres UTM restent visibles dans l'attribution sans être conservés dans l'URL de page mesurée.
-    window.goatcounter = {
-        path: function () {
-            return window.location.pathname || '/';
-        },
-        referrer: function () {
-            const params = new URLSearchParams(window.location.search);
-            const source = params.get('utm_source');
-            const campaign = params.get('utm_campaign');
-            const content = params.get('utm_content');
-
-            if (source || campaign || content) {
-                return ['utm', source, campaign, content].filter(Boolean).join(':');
+    if (window.formidAlpesAnalyticsEnabled) {
+        document.addEventListener('DOMContentLoaded', function () {
+            function trackEvent(path, title) {
+                if (window.goatcounter && typeof window.goatcounter.count === 'function') {
+                    window.goatcounter.count({ path: path, title: title, event: true });
+                }
+                if (typeof window.gtag === 'function') {
+                    window.gtag('event', path.replace(/-/g, '_'), { event_label: title });
+                }
             }
 
-            return document.referrer || '';
-        }
-    };
-</script>
-<script
-    data-goatcounter="https://formidalpes.goatcounter.com/count"
-    async
-    src="https://gc.zgo.at/count.v5.js"
-    crossorigin="anonymous"
-    integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ">
-</script>
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        function trackEvent(path, title) {
-            if (window.goatcounter && typeof window.goatcounter.count === 'function') {
-                window.goatcounter.count({ path: path, title: title, event: true });
+            if (window.location.pathname === '/') {
+                document.querySelectorAll('a[href="/habilicible/"]').forEach(function (link) {
+                    link.addEventListener('click', function () {
+                        trackEvent('clic-habilicible-accueil', 'Accueil → HabiliCible');
+                    });
+                });
             }
-            if (typeof window.gtag === 'function') {
-                window.gtag('event', path.replace(/-/g, '_'), { event_label: title });
-            }
-        }
 
-        if (window.location.pathname === '/') {
-            document.querySelectorAll('a[href="/habilicible/"]').forEach(function (link) {
+            document.querySelectorAll('a[href="/habilicible/demo/"], a[href="/habilicible-demo.html"]').forEach(function (link) {
                 link.addEventListener('click', function () {
-                    trackEvent('clic-habilicible-accueil', 'Accueil → HabiliCible');
+                    trackEvent('clic-demo-habilicible', 'Ouverture de la démo HabiliCible');
                 });
             });
-        }
 
-        document.querySelectorAll('a[href="/habilicible/demo/"], a[href="/habilicible-demo.html"]').forEach(function (link) {
-            link.addEventListener('click', function () {
-                trackEvent('clic-demo-habilicible', 'Ouverture de la démo HabiliCible');
+            document.querySelectorAll('a[href="#acces-pilote"], a[href="#essai"]').forEach(function (link) {
+                link.addEventListener('click', function () {
+                    trackEvent('clic-acces-habilicible', 'Clic vers la demande d’essai HabiliCible');
+                });
             });
-        });
 
-        document.querySelectorAll('a[href="#acces-pilote"], a[href="#essai"]').forEach(function (link) {
-            link.addEventListener('click', function () {
-                trackEvent('clic-acces-habilicible', 'Clic vers la demande d’essai HabiliCible');
-            });
-        });
+            const habilicibleForm = document.querySelector(
+                'form[action="https://formspree.io/f/meorkvbw"] input[name="Origine"]'
+            )?.closest('form');
 
-        const habilicibleForm = document.querySelector(
-            'form[action="https://formspree.io/f/meorkvbw"] input[name="Origine"]'
-        )?.closest('form');
+            if (habilicibleForm) {
+                const origine = habilicibleForm.querySelector('input[name="Origine"]')?.value || '';
+                if (origine.indexOf('HabiliCible') !== -1) {
+                    habilicibleForm.addEventListener('submit', function () {
+                        trackEvent('envoi-formulaire-habilicible', 'Envoi du formulaire HabiliCible');
+                    });
+                }
+            }
 
-        if (habilicibleForm) {
-            const origine = habilicibleForm.querySelector('input[name="Origine"]')?.value || '';
-            if (origine.indexOf('HabiliCible') !== -1) {
-                habilicibleForm.addEventListener('submit', function () {
-                    trackEvent('envoi-formulaire-habilicible', 'Envoi du formulaire HabiliCible');
+            const contactForm = document.querySelector(
+                'form[action="https://formspree.io/f/meorkvbw"] input[name="_subject"][value="Nouvelle demande depuis formid-alpes.fr"]'
+            )?.closest('form');
+
+            if (contactForm) {
+                contactForm.addEventListener('submit', function () {
+                    trackEvent('envoi-formulaire-contact', 'Envoi du formulaire de contact');
                 });
             }
-        }
 
-        const contactForm = document.querySelector(
-            'form[action="https://formspree.io/f/meorkvbw"] input[name="_subject"][value="Nouvelle demande depuis formid-alpes.fr"]'
-        )?.closest('form');
+            const habilicibleVideo = document.querySelector(
+                'video source[src="/assets/habilicible/demo-travail-reel.mp4"]'
+            )?.closest('video');
 
-        if (contactForm) {
-            contactForm.addEventListener('submit', function () {
-                trackEvent('envoi-formulaire-contact', 'Envoi du formulaire de contact');
-            });
-        }
-
-        const habilicibleVideo = document.querySelector(
-            'video source[src="/assets/habilicible/demo-travail-reel.mp4"]'
-        )?.closest('video');
-
-        if (habilicibleVideo) {
-            habilicibleVideo.addEventListener('play', function () {
-                trackEvent('lecture-video-habilicible', 'Lecture de la vidéo HabiliCible');
-            }, { once: true });
-        }
-    });
+            if (habilicibleVideo) {
+                habilicibleVideo.addEventListener('play', function () {
+                    trackEvent('lecture-video-habilicible', 'Lecture de la vidéo HabiliCible');
+                }, { once: true });
+            }
+        });
+    }
 </script>
-
 
 </head>
 <body>
