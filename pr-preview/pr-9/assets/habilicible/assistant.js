@@ -64,14 +64,36 @@
         score += 100;
       }
 
-      keywords.forEach(keyword => {
-        if (keyword && q.includes(keyword)) score += keyword.includes(' ') ? 18 : 10;
-      });
-
       const qTokens = new Set(q.split(' ').filter(token => token.length >= 4));
       const itemTokens = itemQuestion.split(' ').filter(token => token.length >= 4);
+
+      keywords.forEach(keyword => {
+        if (!keyword) return;
+
+        if (keyword.includes(' ')) {
+          if (q.includes(keyword)) score += 20;
+          return;
+        }
+
+        if (qTokens.has(keyword)) {
+          score += keyword.length >= 7 ? 16 : 12;
+          return;
+        }
+
+        // Tolère seulement une variation simple singulier/pluriel pour les mots suffisamment longs.
+        if (keyword.length >= 6 && [...qTokens].some(token =>
+          token.startsWith(keyword) || keyword.startsWith(token)
+        )) {
+          score += 8;
+        }
+      });
+
       const overlap = itemTokens.filter(token => qTokens.has(token)).length;
-      score += overlap * 3;
+      score += overlap * 7;
+
+      // Plusieurs mots communs avec la question de référence sont un signal
+      // plus fiable qu'un mot-clé générique isolé (ex. « demande »).
+      if (overlap >= 2) score += 12;
 
       if (!best || score > best.score) {
         best = { score, answer: item.answer };
