@@ -202,6 +202,53 @@
             </div>
         </section>
 
+<script>
+(function setupHabiliCibleSupportPrefill() {
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('objet') !== 'Support HabiliCible') return;
+
+    const form = document.querySelector('form[action="https://formspree.io/f/meorkvbw"]');
+    const formation = document.getElementById('formation');
+    const message = document.getElementById('message');
+    const subject = form?.querySelector('input[name="_subject"]');
+
+    if (!form || !message) return;
+
+    if (subject) subject.value = 'Support HabiliCible — demande depuis l\'assistant';
+    if (formation) formation.value = 'HabiliCible';
+
+    const originInput = document.createElement('input');
+    originInput.type = 'hidden';
+    originInput.name = 'Origine';
+    originInput.value = params.get('origine') || 'Assistant HabiliCible';
+    form.appendChild(originInput);
+
+    const lastQuestion = (params.get('question') || '').slice(0, 300);
+    const unresolved = (params.get('questions_sans_reponse') || '').slice(0, 1200);
+
+    const parts = [
+        "Bonjour,",
+        "",
+        "J’ai utilisé l’assistant HabiliCible et je souhaite une aide humaine."
+    ];
+
+    if (lastQuestion) {
+        parts.push("", "Ma dernière question :", lastQuestion);
+    }
+
+    if (unresolved) {
+        parts.push(
+            "",
+            "Question(s) restée(s) sans réponse dans l’assistant :",
+            ...unresolved.split(' || ').map(question => "• " + question)
+        );
+    }
+
+    parts.push("", "Merci.");
+    message.value = parts.join("\n");
+})();
+</script>
+
     </main>
 
     <footer>
