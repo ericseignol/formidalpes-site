@@ -1,7 +1,9 @@
-/* HabiliCible support assistant V1 — local knowledge base, no external AI. */
+/* HabiliCible support assistant V2 — dynamic knowledge base, no generative AI. */
 (() => {
   const root = document.getElementById('habilicible-assistant');
   if (!root) return;
+
+  const API_URL = 'https://ruvkdzcufgtyorupczzj.supabase.co/functions/v1/habilicible-assistant';
 
   const launcher = root.querySelector('.hc-assistant-launcher');
   const panel = root.querySelector('.hc-assistant-panel');
@@ -14,6 +16,7 @@
   const environment = window.location.pathname.includes('/pr-preview/') ? 'preview' : 'production';
   const unansweredStorageKey = `habilicible_unanswered_questions_${environment}`;
   let lastQuestion = '';
+  let dynamicKnowledge = [];
 
   const answers = {
     trial: "L'essai dure 30 jours, sans carte bancaire et sans engagement. Il sert à configurer votre espace, tester le questionnaire, vérifier la réception d'une demande et valider l'intégration avant utilisation réelle.",
@@ -24,6 +27,59 @@
     responsibility: "HabiliCible aide à structurer la demande. Il ne décide pas de l'habilitation, ne remplace pas l'analyse de l'organisme de formation et ne se substitue pas à la décision de l'employeur.",
     privacy: "La démonstration publique utilise des données fictives. Pour un espace organisme réel, chaque organisme accède uniquement à ses propres demandes et l'adresse de réception est vérifiée avant activation."
   };
+
+  function normalize(text) {
+    return String(text || '')
+      .normalize('NFD')
+      .replace(/[\u0300-\u036f]/g, '')
+      .toLowerCase()
+      .replace(/[^a-z0-9 ]+/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
+  }
+
+  async function loadDynamicKnowledge() {
+    try {
+      const response = await fetch(API_URL, { method: 'GET', headers: { 'Accept': 'application/json' } });
+      if (!response.ok) return;
+      const payload = await response.json();
+      dynamicKnowledge = Array.isArray(payload.knowledge) ? payload.knowledge : [];
+    } catch {
+      // La base locale reste disponible si le service distant est momentanément indisponible.
+    }
+  }
+
+  function findDynamicAnswer(text) {
+    const q = normalize(text);
+    if (!q || !dynamicKnowledge.length) return null;
+
+    let best = null;
+
+    dynamicKnowledge.forEach(item => {
+      const itemQuestion = normalize(item.normalized_question || item.question);
+      const keywords = Array.isArray(item.keywords) ? item.keywords.map(normalize).filter(Boolean) : [];
+      let score = 0;
+
+      if (itemQuestion && (q === itemQuestion || q.includes(itemQuestion) || itemQuestion.includes(q))) {
+        score += 100;
+      }
+
+      keywords.forEach(keyword => {
+        if (keyword && q.includes(keyword)) score += keyword.includes(' ') ? 18 : 10;
+      });
+
+      const qTokens = new Set(q.split(' ').filter(token => token.length >= 4));
+      const itemTokens = itemQuestion.split(' ').filter(token => token.length >= 4);
+      const overlap = itemTokens.filter(token => qTokens.has(token)).length;
+      score += overlap * 3;
+
+      if (!best || score > best.score) {
+        best = { score, answer: item.answer };
+      }
+    });
+
+    return best && best.score >= 10 ? best.answer : null;
+  }
 
   function addMessage(text, who = 'assistant') {
     const bubble = document.createElement('div');
@@ -56,6 +112,20 @@
     }
   }
 
+  async function sendUnansweredToKnowledgeBase(question) {
+    if (environment !== 'production') return;
+
+    try {
+      await fetch(API_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+        body: JSON.stringify({ action: 'unanswered', question: question.slice(0, 300) })
+      });
+    } catch {
+      // Ne bloque jamais l'assistant si la remontée de la question échoue.
+    }
+  }
+
   function rememberUnanswered(question) {
     const cleanQuestion = question.trim().slice(0, 300);
     if (!cleanQuestion) return;
@@ -74,8 +144,10 @@
       // L'assistant reste fonctionnel si le stockage de session est indisponible.
     }
 
+    sendUnansweredToKnowledgeBase(cleanQuestion);
+
     // On mesure uniquement le nombre de questions non résolues, jamais leur texte.
-    if (typeof window.gtag === 'function') {
+    if (environment === 'production' && typeof window.gtag === 'function') {
       window.gtag('event', 'assistant_unanswered_question', {
         event_label: 'HabiliCible assistant'
       });
@@ -83,6 +155,9 @@
   }
 
   function answerFor(text) {
+    const dynamicAnswer = findDynamicAnswer(text);
+    if (dynamicAnswer) return { text: dynamicAnswer, matched: true };
+
     const q = text.toLowerCase();
     if (/(prix|tarif|coût|cout|79|690|490|abonnement)/.test(q)) return { text: answers.price, matched: true };
     if (/(essai|30 jour|carte|engagement)/.test(q)) return { text: answers.trial, matched: true };
@@ -120,7 +195,7 @@
 
     humanHelpLink.href = target.toString();
 
-    if (typeof window.gtag === 'function') {
+    if (environment === 'production' && typeof window.gtag === 'function') {
       window.gtag('event', 'clic_aide_humaine_habilicible', {
         event_label: 'HabiliCible assistant'
       });
@@ -161,4 +236,6 @@
   if (humanHelpLink) {
     humanHelpLink.addEventListener('click', prepareHumanHelpLink);
   }
+
+  loadDynamicKnowledge();
 })();
