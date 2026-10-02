@@ -3,6 +3,7 @@ layout: default
 permalink: /habilicible/
 title: HabiliCible — Qualification des besoins en habilitation électrique
 description: HabiliCible aide les organismes de formation à transformer les demandes imprécises en besoins de formation en habilitation électrique mieux structurés.
+habilicible_assistant: true
 ---
 
 <section class="habilicible-hero">
@@ -216,3 +217,47 @@ description: HabiliCible aide les organismes de formation à transformer les dem
         </form>
     </div>
 </section>
+
+<div class="hc-assistant" id="habilicible-assistant" data-state="closed">
+    <button class="hc-assistant-launcher" type="button" aria-expanded="false" aria-controls="hc-assistant-panel">
+        <i class="fas fa-comments" aria-hidden="true"></i>
+        <span>Aide HabiliCible</span>
+    </button>
+
+    <section class="hc-assistant-panel" id="hc-assistant-panel" aria-label="Assistant d'aide HabiliCible" hidden>
+        <header class="hc-assistant-header">
+            <div>
+                <strong>Aide HabiliCible</strong>
+                <span>Assistant de prise en main</span>
+            </div>
+            <button class="hc-assistant-close" type="button" aria-label="Fermer l'assistant">
+                <i class="fas fa-xmark" aria-hidden="true"></i>
+            </button>
+        </header>
+
+        <div class="hc-assistant-messages" id="hc-assistant-messages" aria-live="polite">
+            <div class="hc-message hc-message--assistant">
+                Bonjour. Je peux vous aider à prendre en main HabiliCible : essai, paramétrage, intégration et utilisation.
+                <small>Je n'attribue pas d'habilitation et ne remplace pas l'analyse du professionnel.</small>
+            </div>
+        </div>
+
+        <div class="hc-assistant-quick" aria-label="Questions fréquentes">
+            <button type="button" data-question="trial">Comment fonctionne l'essai ?</button>
+            <button type="button" data-question="setup">Comment paramétrer mon espace ?</button>
+            <button type="button" data-question="embed">Comment intégrer HabiliCible ?</button>
+            <button type="button" data-question="request">Que reçoit mon organisme ?</button>
+        </div>
+
+        <form class="hc-assistant-form" id="hc-assistant-form">
+            <label class="sr-only" for="hc-assistant-input">Votre question</label>
+            <input id="hc-assistant-input" type="text" maxlength="300" autocomplete="off" placeholder="Posez votre question…" />
+            <button type="submit" aria-label="Envoyer la question"><i class="fas fa-arrow-up" aria-hidden="true"></i></button>
+        </form>
+
+        <footer class="hc-assistant-footer">
+            <span>Une question reste sans réponse ?</span>
+            <a href="/contact.html?objet=Support%20HabiliCible">Demander une aide humaine</a>
+        </footer>
+    </section>
+</div>
